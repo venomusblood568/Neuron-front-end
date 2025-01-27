@@ -1,20 +1,21 @@
 import { Button } from "./Components/button";
+import { ShareIcon } from "./icon/shareIcon";
+import { PlusIcon } from "./icon/plusIcon";
 import "./App.css";
 
 function App() {
  return (
    <>
-     <Button
-       variant="primary"
-       text="Primary Button"
-       startIcon={<span>🚀</span>}
-     />
+     <Button 
+        variant="primary" 
+        text="Add Content" 
+        startIcon={<PlusIcon />} />
 
      {/* Secondary Button */}
      <Button
        variant="secondary"
-       text="Secondary Button"
-       endIcon={<span>👉</span>}
+       text="Share"
+       startIcon={<ShareIcon/>}
      />
    </>
  );
