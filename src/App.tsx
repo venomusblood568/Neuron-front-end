@@ -36,7 +36,7 @@ function App() {
         <Card
           type="youtube"
           link="https://www.youtube.com/watch?v=lfVCH6JUxmw"
-          title="Best of Rajesh Khanna Hindi Songs | 19 Rajesh Khanna Hit Bollywood Songs | Evergreen Songs"
+          title="Best of Rajesh Khanna Hindi Songs"
         />
       </div>
     </div>
