@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-interface ButtonPros {
+interface ButtonProps {
   variant: "primary" | "secondary";
   text: string;
   startIcon?: ReactElement;
@@ -16,7 +16,7 @@ const variantClasses = {
   secondary: "bg-lightPurple text-darkPurple",
 };
 
-const defaultStyles = "px-4 py-2 rounded-md font-light flex items-center";
+const defaultStyles = "inline-flex items-center px-4 py-2 rounded-md font-light";
 
 export function Button({
   variant,
@@ -26,12 +26,12 @@ export function Button({
   onClick,
   fullwidth,
   loading,
-}: ButtonPros) {
+}: ButtonProps) {
   return (
     <button
       onClick={onClick}
       className={`${variantClasses[variant]} ${defaultStyles} ${
-        fullwidth ? "w-full flex justify-center items-center" : ""
+        fullwidth ? "w-full justify-center" : ""
       } ${loading ? "opacity-45" : ""}`}
       disabled={loading}
     >

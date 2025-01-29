@@ -6,7 +6,7 @@ export function NeuronIcon(){
         height="24"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="#000000"
+        stroke="white"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
