@@ -9,8 +9,8 @@ export function SideBar(){
           <a className="text-darkPurple">ᑎ</a>ᗴᑌᖇᗝᑎ
         </div>
         <div className="text-white pt-4 text-2xl flex flex-col gap-6 items-center justify-center p-6 w-full max-w-md">
-          <SidebarItems text="丅ᗯI丅丅ᗴᖇ" icon={<TwitterIcon />} />
-          <SidebarItems text="Ƴᗝᑌ丅ᑌᗷᗴ" icon={<YoutubeIcon />} />
+          <SidebarItems text="ᎢᎳᏆᎢᎢᎬᎡ" icon={<TwitterIcon />} />
+          <SidebarItems text="YOUTUBE" icon={<YoutubeIcon />} />
         </div>
       </div>
     );
