@@ -1,12 +1,12 @@
 import "./App.css";
-import { Dashboard } from "./pages/dashboard";
+import { Signin } from "./pages/signin";
 
 function App() {
-  return(
+  return (
     <>
-    <Dashboard/>
+      <Signin/>
     </>
-  )
+  );
 }
 
 export default App;
