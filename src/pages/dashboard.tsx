@@ -9,7 +9,6 @@ import { SideBar } from "../Components/sidebar";
 export function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
 
-
   return (
     <div>
       <SideBar />
@@ -29,7 +28,7 @@ export function Dashboard() {
             onClick={() => setModelOpen(true)}
           />
         </div>
-        <div className="flex gap-4 py-1">
+        <div className="flex gap-4 py-5 flex-wrap items-center">
           <Card
             type="twitter"
             link="https://x.com/Duckyatduck/status/1884305325039444338"
@@ -45,5 +44,3 @@ export function Dashboard() {
     </div>
   );
 }
-
-

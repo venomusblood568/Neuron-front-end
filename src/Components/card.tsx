@@ -36,17 +36,19 @@ export function Card({ title, link, type }: Cardprops) {
           {/* Main Content */}
           <div>
             {/* YouTube thumbnail extraction */}
-            {type === "youtube" && (
-              <a href={link} target="_blank" rel="noopener noreferrer">
-                <img
-                  className="w-full  rounded-5xl"
-                  src={`https://img.youtube.com/vi/${new URL(
-                    link
-                  ).searchParams.get("v")}/hqdefault.jpg`}
-                  alt="YouTube Thumbnail"
-                />
-              </a>
-            )}
+            <div className="py-2">
+              {type === "youtube" && (
+                <a href={link} target="_blank" rel="noopener noreferrer">
+                  <img
+                    className="w-full  rounded-5xl "
+                    src={`https://img.youtube.com/vi/${new URL(
+                      link
+                    ).searchParams.get("v")}/hqdefault.jpg`}
+                    alt="YouTube Thumbnail"
+                  />
+                </a>
+              )}
+            </div>
 
             {/* Twitter embedded extraction */}
             {type === "twitter" && (
@@ -58,6 +60,7 @@ export function Card({ title, link, type }: Cardprops) {
             )}
           </div>
         </div>
+        
       </>
     );
   
