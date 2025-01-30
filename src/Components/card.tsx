@@ -1,5 +1,5 @@
 import { ShareIcon } from "../icon/shareIcon";
-import { NeuronIcon } from "../icon/neuronicon";
+import { NeuronIcon } from "../icon/neuronIcon";
 import { DeleteIcon } from "../icon/deleteIcon";
 
 interface Cardprops {

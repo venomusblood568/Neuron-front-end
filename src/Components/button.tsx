@@ -16,7 +16,8 @@ const variantClasses = {
   secondary: "bg-lightPurple text-darkPurple",
 };
 
-const defaultStyles = "inline-flex items-center px-4 py-2 rounded-md font-light";
+const defaultStyles =
+  "inline-flex items-center px-4 py-2 rounded-md font-light cursor-pointer";
 
 export function Button({
   variant,
