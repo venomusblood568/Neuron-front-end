@@ -67,7 +67,7 @@ export function Dashboard() {
           <Card
             type="instagram"
             link="https://www.instagram.com/reel/DFHHioEo5V9/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-            title="Fav Keyboard"
+            title="Thar"
           />
         </div>
       </div>
