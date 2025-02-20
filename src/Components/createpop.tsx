@@ -13,8 +13,8 @@ export function CreateContentModel({ open, onClose }) {
                   <CrossIcon />
                 </div>
               </div>
-              <div>
-                <Input placeholder={"TItle"}></Input>
+              <div className="text-start">
+                <Input placeholder={"Title"}></Input>
                 <Input placeholder={"Link"}></Input>
               </div>
               <div className="flex justify-center w-full">
@@ -34,7 +34,7 @@ function Input({ onChange, placeholder}: { onChange: () => void }) {
       <input
         placeholder={placeholder}
         type="text"
-        className="px-4 py-2 border rounded gap-2 m-2"
+        className="px-9 py-2 border rounded gap-2 m-2"
         onChange={onChange}
       />
     </div>

@@ -1,10 +1,9 @@
 import "./App.css";
-import { Signin } from "./pages/signin";
-
+import { Dashboard } from "./pages/dashboard";
 function App() {
   return (
     <>
-      <Signin/>
+      <Dashboard/>
     </>
   );
 }
