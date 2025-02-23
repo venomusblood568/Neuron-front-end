@@ -2,10 +2,11 @@ import { ContentIcon } from "../icon/content";
 import { YoutubeIcon } from "../icon/youtube";
 import { SidebarItems } from "./sidebarItems";
 import { LinkIcon } from "../icon/link";
+import { ProfileIcon } from "../icon/profile";
 
 export function SideBar(){
     return (
-      <div className="h-screen bg-black border-darkPurple  border-r-2 w-56 fixed left-0  top-0 ">
+      <div className="h-screen bg-black border-darkPurple  border-r-2 w-56 fixed left-0  top-0 flex flex-col">
         <div className="flex items-center justify-center text-white text-3xl p-5 m-5 tracking-widest">
           <a className="text-darkPurple">ᑎ</a>ᗴᑌᖇᗝ
           <a className="text-darkPurple">ᑎ</a>
@@ -14,6 +15,11 @@ export function SideBar(){
           <SidebarItems text=" CONTENTS " icon={<ContentIcon />} />
           <SidebarItems text=" YOUTUBE " icon={<YoutubeIcon />} />
           <SidebarItems text=" LINK DUMP " icon={<LinkIcon />} />
+          <div className="absolute bottom-4 w-full flex flex-col items-center duration-300 cursor-pointer p-4 rounded-md">
+            <hr className="border-darkPurple w-full" />
+            <br />
+            <SidebarItems text="USERNAME" icon={<ProfileIcon />} />
+          </div>
         </div>
       </div>
     );
