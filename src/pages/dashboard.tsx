@@ -28,12 +28,7 @@ export function Dashboard() {
             onClick={() => setModelOpen(true)}
           />
         </div>
-        <div className="grid grid-cols-4 gap-4 py-5 items-start w-full">
-          <Card
-            type="twitter"
-            link="https://x.com/Duckyatduck/status/1884305325039444338"
-            title="test1"
-          />
+        <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">
           <Card
             type="youtube"
             link="https://www.youtube.com/watch?v=lfVCH6JUxmw"
@@ -63,11 +58,6 @@ export function Dashboard() {
             type="article"
             link="https://projects.100xdevs.com/tracks/gZf9uBBNSbBR7UCqyyqT/prisma-4"
             title="Prisma"
-          />
-          <Card
-            type="instagram"
-            link="https://www.instagram.com/reel/DFHHioEo5V9/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-            title="Thar"
           />
         </div>
       </div>

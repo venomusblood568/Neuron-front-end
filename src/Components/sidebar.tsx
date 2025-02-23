@@ -1,7 +1,5 @@
 import { ContentIcon } from "../icon/content";
-import { TwitterIcon } from "../icon/twitter";
 import { YoutubeIcon } from "../icon/youtube";
-import { InstagramIcon } from "../icon/instagram";
 import { SidebarItems } from "./sidebarItems";
 import { LinkIcon } from "../icon/link";
 
@@ -14,9 +12,7 @@ export function SideBar(){
         </div>
         <div className="text-white pt-2 text-1xl flex flex-col gap-6 items-center justify-center p-4 w-full max-w-md px-4">
           <SidebarItems text=" CONTENTS " icon={<ContentIcon />} />
-          <SidebarItems text=" ᎢᎳᏆᎢᎢᎬᎡ " icon={<TwitterIcon />} />
           <SidebarItems text=" YOUTUBE " icon={<YoutubeIcon />} />
-          <SidebarItems text=" INSTAGRAM " icon={<InstagramIcon />} />
           <SidebarItems text=" LINK DUMP " icon={<LinkIcon />} />
         </div>
       </div>
