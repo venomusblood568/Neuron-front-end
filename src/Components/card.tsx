@@ -63,9 +63,9 @@ export function Card({ title, link, type }: Cardprops) {
   };
 
   return (
-    <div className="p-2 rounded-md border-darkPurple max-w-72 border min-h-48 min-w-72 shadow-xl">
+    <div className="p-2 rounded-md border-darkPurple max-w-72 border min-h-48 min-w-72 shadow-xl ">
       {/* Header Section */}
-      <div className="flex justify-between text-white">
+      <div className="flex justify-between text-white ">
         <div className="flex items-center text-md gap-2">
           <NeuronIcon className="text-white pr-2 " />
           <h1>{title || "Untitled Post"}</h1>
