@@ -32,7 +32,7 @@ export function Button({
     <button
       onClick={onClick}
       className={`${variantClasses[variant]} ${defaultStyles} ${
-        fullwidth ? "w-full justify-center" : ""
+        fullwidth ? "w-full justify-center items-center" : ""
       } ${loading ? "opacity-45" : ""}`}
       disabled={loading}
     >
