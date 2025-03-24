@@ -3,11 +3,20 @@ import { ShareIcon } from "../icon/shareIcon";
 import { PlusIcon } from "../icon/plusIcon";
 import { Card } from "../Components/card";
 import { CreateContentModel } from "../Components/createpop";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SideBar } from "../Components/sidebar";
+import { useContent } from "../hooks/useContent";
 
 export function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
+  const {contents,refresh} = useContent()
+
+  useEffect(() => {
+    if (modelOpen) {
+      refresh();
+    }
+  }, [modelOpen]);
+
 
   return (
     <div>
@@ -29,37 +38,9 @@ export function Dashboard() {
           />
         </div>
         <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">
-          <Card
-            type="youtube"
-            link="https://www.youtube.com/watch?v=lfVCH6JUxmw"
-            title="Best of Rajesh Khanna Hindi Songs"
-          />
-          <Card
-            type="blog"
-            link="https://developer.hashicorp.com/terraform/intro"
-            title="What is Terraform?"
-          />
-          <Card
-            type="medium"
-            link="https://medium.com/@bluecodes/how-to-make-ur-chrome-extension-23df40192349"
-            title="Extension"
-          />
-          <Card
-            type="youtube"
-            link="https://youtube.com/shorts/o4ceJoU8dT4?si=U35um_Ek8eM2YnLh"
-            title="Pc"
-          />
-          <Card
-            type="article"
-            link="https://www.tatvasoft.com/blog/what-are-orms-and-how-does-it-work/"
-            title="What are ORMs and How does It Work?"
-          />
-          <Card
-            type="article"
-            link="https://projects.100xdevs.com/tracks/gZf9uBBNSbBR7UCqyyqT/prisma-4"
-            title="Prisma"
-          />
-          
+          {contents.map(({ type, link, title }, index) => (
+            <Card key={index} type={type} link={link} title={title} />
+          ))}
         </div>
       </div>
     </div>

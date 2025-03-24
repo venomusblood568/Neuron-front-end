@@ -1,3 +1,4 @@
+import { useEffect,useState } from "react";
 import { ContentIcon } from "../icon/content";
 import { YoutubeIcon } from "../icon/youtube";
 import { SidebarItems } from "./sidebarItems";
@@ -5,7 +6,14 @@ import { LinkIcon } from "../icon/link";
 import { ProfileIcon } from "../icon/profile";
 
 export function SideBar(){
-    return (
+   
+  const[username,setUsername] = useState<String | null>(null);
+  useEffect(() =>{
+    const storedUsername = localStorage.getItem("username");
+    setUsername(storedUsername)
+  },[])
+  
+  return (
       <div className="h-screen bg-black border-darkPurple  border-r-2 w-56 fixed left-0  top-0 flex flex-col">
         <div className="flex items-center justify-center text-white text-3xl p-5 m-5 tracking-widest">
           <a className="text-darkPurple">ᑎ</a>ᗴᑌᖇᗝ
@@ -18,7 +26,7 @@ export function SideBar(){
           <div className="absolute bottom-4 w-full flex flex-col items-center duration-300 cursor-pointer p-4 rounded-md">
             <hr className="border-darkPurple w-full" />
             <br />
-            <SidebarItems text="USERNAME" icon={<ProfileIcon />} />
+            <SidebarItems text={username} icon={<ProfileIcon />} />
           </div>
         </div>
       </div>

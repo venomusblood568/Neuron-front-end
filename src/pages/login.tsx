@@ -21,6 +21,7 @@ export function Login() {
     });
     const jwt = response.data.token
     localStorage.setItem("token",jwt)
+    localStorage.setItem("username", username);
     navigate("/dashboard");
     
   }
