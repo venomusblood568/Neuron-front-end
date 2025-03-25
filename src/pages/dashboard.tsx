@@ -36,7 +36,9 @@ export function Dashboard() {
             startIcon={<PlusIcon />}
             onClick={() => setModelOpen(true)}
           />
+          
         </div>
+        
         <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">
           {contents.map(({ type, link, title }, index) => (
             <Card key={index} type={type} link={link} title={title} />
