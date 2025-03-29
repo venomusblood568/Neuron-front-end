@@ -9,7 +9,7 @@ import { useContent } from "../hooks/useContent";
 
 export function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
-  const {contents,refresh} = useContent()
+  const {contents,refresh,deleteContent} = useContent()
 
   useEffect(() => {
     if (modelOpen) {
@@ -36,12 +36,17 @@ export function Dashboard() {
             startIcon={<PlusIcon />}
             onClick={() => setModelOpen(true)}
           />
-          
         </div>
-        
+
         <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">
-          {contents.map(({ type, link, title }, index) => (
-            <Card key={index} type={type} link={link} title={title} />
+          {contents.map((content) => (
+            <Card
+              key={content._id}
+              id={content._id}
+              type={content.type}
+              link={content.link}
+              title={content.title}
+            />
           ))}
         </div>
       </div>

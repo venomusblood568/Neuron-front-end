@@ -4,18 +4,22 @@ import { DeleteIcon } from "../icon/deleteIcon";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useContent } from "../hooks/useContent";
 
-interface Cardprops {
+interface CardProps {
+  id: string;
   title: string;
   link: string;
   type: "twitter" | "youtube" | "medium" | "article" | "blog" | "instagram";
 }
 
-export function Card({ title, link, type }: Cardprops) {
+export function Card({ id, title, link, type }: CardProps) {
+  const { deleteContent } = useContent();
   const formattedLink = link.replace("x.com", "twitter.com");
   const [thumbnail, setThumbnail] = useState<string | null>(null);
   const defaultImage = "https://source.unsplash.com/400x300/?technology,code";
 
+  // Thumbnail fetching effect
   useEffect(() => {
     const fetchThumbnail = async (url: string) => {
       try {
@@ -42,18 +46,46 @@ export function Card({ title, link, type }: Cardprops) {
     }
   }, [link, type]);
 
+  // Delete handler
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      const success = await deleteContent(id);
+      if (success) {
+        toast.dark("🗑 Content deleted", {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+      } else {
+        toast.error("Failed to delete content", {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+      }
+    }
+  };
+
+  // Share handler
+  const handleShare = () => {
+    navigator.clipboard.writeText(link);
+    toast.dark("🖇 Link’s ready. Just paste & go.", {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
+  };
+
+  // YouTube thumbnail generator
   const getYouTubeThumbnail = () => {
     try {
       let videoId = null;
+      const url = new URL(link);
 
-      if (link.includes("youtube.com/watch?v=")) {
-        videoId = new URL(link).searchParams.get("v");
-      } else if (link.includes("youtu.be/")) {
-        videoId = link.split("youtu.be/")[1].split("?")[0];
-      } else if (link.includes("youtube.com/shorts/")) {
-        videoId = link.split("youtube.com/shorts/")[1].split("?")[0];
-      } else if (link.includes("youtube.com/embed/")) {
-        videoId = link.split("youtube.com/embed/")[1].split("?")[0];
+      if (url.hostname === "www.youtube.com") {
+        videoId =
+          url.searchParams.get("v") ||
+          url.pathname.split("/shorts/")[1] ||
+          url.pathname.split("/embed/")[1];
+      } else if (url.hostname === "youtu.be") {
+        videoId = url.pathname.slice(1);
       }
 
       return videoId
@@ -64,69 +96,105 @@ export function Card({ title, link, type }: Cardprops) {
     }
   };
 
-  const handleShare = () => {
-    navigator.clipboard.writeText(link)
-    toast.dark("🖇 Link’s ready. Just paste & go.", {
-      position: "bottom-right",
-    });
-  };
+  // Twitter embed effect
+  useEffect(() => {
+    if (type === "twitter" && (window as any).twttr) {
+      (window as any).twttr.widgets.load();
+    }
+  }, [type]);
 
   return (
-    <div className="p-2 rounded-md border-darkPurple max-w-72 border min-h-48 min-w-72 shadow-xl">
+    <div className="p-2 rounded-md border-darkPurple max-w-72 border min-h-48 min-w-72 shadow-xl hover:transform hover:scale-103 transition-all duration-200">
       {/* Header Section */}
       <div className="flex justify-between text-white">
-        <div className="flex items-center text-md gap-2">
+        <div className="flex items-center text-md gap-2 truncate">
           <NeuronIcon className="text-white pr-2" />
-          <h1>{title || "Untitled Post"}</h1>
+          <h1 className="truncate">{title || "Untitled Post"}</h1>
         </div>
         <div className="flex items-center">
           <div
-            className="pr-2 text-gray-500 cursor-pointer"
+            className="pr-2 text-gray-500 cursor-pointer hover:text-white transition-colors"
             onClick={handleShare}
+            title="Share link"
           >
             <ShareIcon color="white" />
           </div>
-          <div className="cursor-pointer">
-            <DeleteIcon className="text-white" />
+          <div
+            className="cursor-pointer hover:text-red-500 transition-colors"
+            onClick={handleDelete}
+            title="Delete content"
+          >
+            <DeleteIcon className="currentColor" />
           </div>
         </div>
       </div>
 
       {/* Content Section */}
-      <div className="py-2">
+      <div className="py-2 h-[calc(100%-3rem)]">
         {/* YouTube Video */}
         {type === "youtube" && (
-          <a href={link} target="_blank" rel="noopener noreferrer">
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block h-full"
+          >
             {getYouTubeThumbnail() ? (
               <img
-                className="w-full rounded-5xl"
+                className="w-full h-full object-cover rounded-lg"
                 src={getYouTubeThumbnail()!}
                 alt="YouTube Thumbnail"
                 onError={(e) => (e.currentTarget.src = defaultImage)}
               />
             ) : (
-              <p className="text-red-400">Invalid YouTube URL</p>
+              <div className="h-full flex items-center justify-center text-red-400">
+                Invalid YouTube URL
+              </div>
             )}
           </a>
         )}
 
         {/* Twitter Embed */}
         {type === "twitter" && (
-          <a href={formattedLink} target="_blank" rel="noopener noreferrer">
-            <blockquote className="twitter-tweet">View Tweet</blockquote>
+          <a
+            href={formattedLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block h-full"
+          >
+            <div className="h-full flex items-center justify-center bg-twitterBlue rounded-lg p-2">
+              <blockquote className="twitter-tweet">
+                <p lang="en" dir="ltr">
+                  View on Twitter
+                </p>
+                &mdash; {formattedLink.split("/").pop()}
+              </blockquote>
+            </div>
           </a>
         )}
 
         {/* Article/Blog/Medium/Instagram */}
         {["medium", "article", "blog", "instagram"].includes(type) && (
-          <a href={link} target="_blank" rel="noopener noreferrer">
-            <img
-              className="w-full rounded-5xl"
-              src={thumbnail || defaultImage}
-              alt="Article Thumbnail"
-              onError={(e) => (e.currentTarget.src = defaultImage)}
-            />
-            <p className="text-gray-400 mt-2">Read more</p>
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block h-full"
+          >
+            <div className="relative h-full">
+              <img
+                className="w-full h-full object-cover rounded-lg"
+                src={thumbnail || defaultImage}
+                alt="Article Thumbnail"
+                onError={(e) => (e.currentTarget.src = defaultImage)}
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+                <p className="text-white font-medium truncate">
+                  {title || "Read more"}
+                </p>
+                <p className="text-gray-300 text-sm">Click to view</p>
+              </div>
+            </div>
           </a>
         )}
       </div>
