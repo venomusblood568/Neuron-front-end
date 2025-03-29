@@ -7,6 +7,7 @@ import { ProfileIcon } from "../icon/profile";
 import { useNavigate } from "react-router-dom";
 import { Logout } from "./logout";
 import { LogoutIcon } from "../icon/logout";
+import { toast } from "react-toastify";
 
 export function SideBar(){
   
@@ -24,7 +25,13 @@ export function SideBar(){
 
   async function logouthandler() {
     localStorage.removeItem("username");
-    navigate("/login");
+    toast.success(`Bye ${username}. See you soon!`, {
+      position: "bottom-right",
+      autoClose: 2000,
+    });
+    setTimeout(() => {
+      navigate("/login");
+    }, 1500);
   }
 
   return (

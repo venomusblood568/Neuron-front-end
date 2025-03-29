@@ -49,21 +49,23 @@ export function Card({ id, title, link, type }: CardProps) {
 
   // Delete handler
   const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
+    toast.dark("🗑 Content deleted. Undo?", {
+      position: "bottom-right",
+      autoClose: 5000,
+      action: {
+        text: "Undo",
+        onClick: () => {
+          // Cancel deletion
+        },
+      },
+    });
+
+    setTimeout(async () => {
       const success = await deleteContent(id);
       if (success) {
-        toast.dark("🗑 Content deleted, Just Refresh", {
-          position: "bottom-right",
-          autoClose: 2000,
-        });
-        refresh()
-      } else {
-        toast.error("Failed to delete content", {
-          position: "bottom-right",
-          autoClose: 2000,
-        });
+        refresh();
       }
-    }
+    }, 5000);
   };
 
   // Share handler
