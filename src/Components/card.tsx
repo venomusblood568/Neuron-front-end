@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContent } from "../hooks/useContent";
 
+
 interface CardProps {
   id: string;
   title: string;
@@ -14,7 +15,7 @@ interface CardProps {
 }
 
 export function Card({ id, title, link, type }: CardProps) {
-  const { deleteContent } = useContent();
+  const { deleteContent,refresh } = useContent();
   const formattedLink = link.replace("x.com", "twitter.com");
   const [thumbnail, setThumbnail] = useState<string | null>(null);
   const defaultImage = "https://source.unsplash.com/400x300/?technology,code";
@@ -51,10 +52,11 @@ export function Card({ id, title, link, type }: CardProps) {
     if (window.confirm("Are you sure you want to delete this item?")) {
       const success = await deleteContent(id);
       if (success) {
-        toast.dark("🗑 Content deleted", {
+        toast.dark("🗑 Content deleted, Just Refresh", {
           position: "bottom-right",
           autoClose: 2000,
         });
+        refresh()
       } else {
         toast.error("Failed to delete content", {
           position: "bottom-right",
@@ -113,14 +115,14 @@ export function Card({ id, title, link, type }: CardProps) {
         </div>
         <div className="flex items-center">
           <div
-            className="pr-2 text-gray-500 cursor-pointer hover:text-white transition-colors"
+            className="pr-2  cursor-pointer"
             onClick={handleShare}
             title="Share link"
           >
             <ShareIcon color="white" />
           </div>
           <div
-            className="cursor-pointer hover:text-red-500 transition-colors"
+            className="cursor-pointe"
             onClick={handleDelete}
             title="Delete content"
           >

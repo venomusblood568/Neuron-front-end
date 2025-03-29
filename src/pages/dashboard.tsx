@@ -26,6 +26,7 @@ export function Dashboard() {
           open={modelOpen}
           onClose={() => {
             setModelOpen(false);
+            refresh()
           }}
         />
         <div className="flex justify-end gap-4 py-2">
