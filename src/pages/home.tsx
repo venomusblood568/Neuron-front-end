@@ -28,8 +28,7 @@ export function Home() {
             {" "}
             store everything that resonates with you{" "}
           </span>
-          whether it's a blog post, a random link, an Instagram post, YouTube
-          Shorts, or even your clothing shopping list.
+          <br />
           <br />
           <span className="font-semibold">
             No more lost ideas or forgotten inspirations
@@ -37,7 +36,7 @@ export function Home() {
           —everything stays
           <span className="text-darkPurple">
             {" "}
-            organized, accessible, and ready whenever you need it.
+            organized, accessible, at your finger tips.
           </span>
         </p>
 
