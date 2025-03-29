@@ -4,6 +4,7 @@ import { useRef } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export function SignUp() {
   const usernameRef = useRef<HTMLInputElement>()
@@ -11,14 +12,38 @@ export function SignUp() {
   const navigate = useNavigate();
 
   async function signup(){
-    const username = usernameRef.current?.value;
-    const password = passwordRef.current?.value;
-    await axios.post(BACKEND_URL + "/api/v1/signup",{
-      username,
-      password
-    })
-    navigate("/login")
-    alert("You have signup up!!!")
+    try {
+      
+      const username = usernameRef.current?.value;
+      const password = passwordRef.current?.value;
+      await axios.post(BACKEND_URL + "/api/v1/signup", {
+        username,
+        password,
+      });
+      if (!username || !password) {
+        toast.warning("⚠️ Please enter username and password.", {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+        return;
+      }
+      toast.success(`Welcome to Neuron 🧠🚀, where ideas connect and grow!`, {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        toast.success(`Glad to have you here, ${username}! 🎉`, {
+          position: "bottom-right",
+          autoClose: 2000,
+        });
+        navigate("/dashboard");
+      },2000);
+    } catch (error) {
+      toast.error("❌ Error", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
   }
 
 
