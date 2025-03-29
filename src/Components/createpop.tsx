@@ -65,7 +65,7 @@ export function CreateContentModel({ open, onClose }) {
 
   return (
     open && (
-      <div className="w-screen h-screen bg-gray-900/50 fixed top-0 left-0 flex justify-center items-center">
+      <div className="w-screen h-screen bg-gray-900/50 fixed top-0 left-0 flex justify-center items-center z-90">
         <div
           ref={modalRef}
           className="bg-white opacity-100 p-6 rounded-lg w-96"
