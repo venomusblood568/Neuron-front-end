@@ -2,6 +2,8 @@ import { ShareIcon } from "../icon/shareIcon";
 import { NeuronIcon } from "../icon/neuronIcon";
 import { DeleteIcon } from "../icon/deleteIcon";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Cardprops {
   title: string;
@@ -12,7 +14,7 @@ interface Cardprops {
 export function Card({ title, link, type }: Cardprops) {
   const formattedLink = link.replace("x.com", "twitter.com");
   const [thumbnail, setThumbnail] = useState<string | null>(null);
-  const defaultImage = "https://source.unsplash.com/400x300/?technology,code"; // Fallback image
+  const defaultImage = "https://source.unsplash.com/400x300/?technology,code";
 
   useEffect(() => {
     const fetchThumbnail = async (url: string) => {
@@ -62,30 +64,37 @@ export function Card({ title, link, type }: Cardprops) {
     }
   };
 
+  const handleShare = () => {
+    navigator.clipboard.writeText(link)
+    toast.dark("🖇 Link’s ready. Just paste & go.", {
+      position: "bottom-right",
+    });
+  };
+
   return (
-    <div className="p-2 rounded-md border-darkPurple max-w-72 border min-h-48 min-w-72 shadow-xl ">
+    <div className="p-2 rounded-md border-darkPurple max-w-72 border min-h-48 min-w-72 shadow-xl">
       {/* Header Section */}
-      <div className="flex justify-between text-white ">
+      <div className="flex justify-between text-white">
         <div className="flex items-center text-md gap-2">
-          <NeuronIcon className="text-white pr-2 " />
+          <NeuronIcon className="text-white pr-2" />
           <h1>{title || "Untitled Post"}</h1>
         </div>
         <div className="flex items-center">
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pr-2 text-gray-500"
+          <div
+            className="pr-2 text-gray-500 cursor-pointer"
+            onClick={handleShare}
           >
-            <ShareIcon className="text-white" />
-          </a>
-          <DeleteIcon className="text-white" />
+            <ShareIcon color="white" />
+          </div>
+          <div className="cursor-pointer">
+            <DeleteIcon className="text-white" />
+          </div>
         </div>
       </div>
 
       {/* Content Section */}
       <div className="py-2">
-        {/* YouTube Video (Regular & Shorts) */}
+        {/* YouTube Video */}
         {type === "youtube" && (
           <a href={link} target="_blank" rel="noopener noreferrer">
             {getYouTubeThumbnail() ? (
@@ -103,14 +112,12 @@ export function Card({ title, link, type }: Cardprops) {
 
         {/* Twitter Embed */}
         {type === "twitter" && (
-          <blockquote className="twitter-tweet">
-            <a href={formattedLink} target="_blank" rel="noopener noreferrer">
-              View Tweet
-            </a>
-          </blockquote>
+          <a href={formattedLink} target="_blank" rel="noopener noreferrer">
+            <blockquote className="twitter-tweet">View Tweet</blockquote>
+          </a>
         )}
 
-        {/* Article, Blog, Instagram, or Medium Preview */}
+        {/* Article/Blog/Medium/Instagram */}
         {["medium", "article", "blog", "instagram"].includes(type) && (
           <a href={link} target="_blank" rel="noopener noreferrer">
             <img
