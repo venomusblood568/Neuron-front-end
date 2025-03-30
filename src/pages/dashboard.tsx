@@ -26,17 +26,25 @@ export function Dashboard() {
           open={modelOpen}
           onClose={() => {
             setModelOpen(false);
-            refresh()
+            refresh();
           }}
         />
-        <div className="flex justify-end gap-4 py-2">
-          <Button variant="secondary" text="Share" startIcon={<ShareIcon />} />
-          <Button
-            variant="primary"
-            text="Add Content"
-            startIcon={<PlusIcon />}
-            onClick={() => setModelOpen(true)}
-          />
+        <div className="flex justify-end gap-4 py-2 ">
+          <div className="opacity-100 hover:opacity-80 transition-opacity duration-200">
+            <Button
+              variant="secondary"
+              text="Share"
+              startIcon={<ShareIcon />}
+            />
+          </div>
+          <div className="opacity-100 hover:opacity-80 transition-opacity duration-200">
+            <Button
+              variant="primary"
+              text="Add Content"
+              startIcon={<PlusIcon />}
+              onClick={() => setModelOpen(true)}
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">

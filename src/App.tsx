@@ -6,6 +6,7 @@ import { SignUp } from "./pages/signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; 
+import {SharePage} from "./pages/sharepage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/share" element={<SharePage/>} />
         </Routes>
       </BrowserRouter>
     </>

@@ -16,10 +16,7 @@ export function SignUp() {
       
       const username = usernameRef.current?.value;
       const password = passwordRef.current?.value;
-      await axios.post(BACKEND_URL + "/api/v1/signup", {
-        username,
-        password,
-      });
+      
       if (!username || !password) {
         toast.warning("⚠️ Please enter username and password.", {
           position: "bottom-right",
@@ -27,6 +24,11 @@ export function SignUp() {
         });
         return;
       }
+      await axios.post(BACKEND_URL + "/api/v1/signup", {
+        username,
+        password,
+      });
+      
       toast.success(`Welcome to Neuron 🧠🚀, where ideas connect and grow!`, {
         position: "bottom-right",
         autoClose: 2000,
@@ -36,7 +38,7 @@ export function SignUp() {
           position: "bottom-right",
           autoClose: 2000,
         });
-        navigate("/dashboard");
+        navigate("/login");
       },2000);
     } catch (error) {
       toast.error("❌ Error", {

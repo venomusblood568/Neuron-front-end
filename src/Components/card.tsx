@@ -6,16 +6,22 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContent } from "../hooks/useContent";
 
-
 interface CardProps {
   id: string;
   title: string;
   link: string;
+  disableActions?: boolean;
   type: "twitter" | "youtube" | "medium" | "article" | "blog" | "instagram";
 }
 
-export function Card({ id, title, link, type }: CardProps) {
-  const { deleteContent,refresh } = useContent();
+export function Card({
+  id,
+  title,
+  link,
+  type,
+  disableActions = false,
+}: CardProps) {
+  const { deleteContent, refresh } = useContent();
   const formattedLink = link.replace("x.com", "twitter.com");
   const [thumbnail, setThumbnail] = useState<string | null>(null);
   const defaultImage = "https://source.unsplash.com/400x300/?technology,code";
@@ -49,6 +55,8 @@ export function Card({ id, title, link, type }: CardProps) {
 
   // Delete handler
   const handleDelete = async () => {
+    if (disableActions) return;
+
     toast.dark("🗑 Content deleted. Undo?", {
       position: "bottom-right",
       autoClose: 5000,
@@ -70,6 +78,8 @@ export function Card({ id, title, link, type }: CardProps) {
 
   // Share handler
   const handleShare = () => {
+    if (disableActions) return;
+
     navigator.clipboard.writeText(link);
     toast.dark("🖇 Link’s ready. Just paste & go.", {
       position: "bottom-right",
@@ -117,22 +127,32 @@ export function Card({ id, title, link, type }: CardProps) {
         </div>
         <div className="flex items-center space-x-2">
           {/* Share Button */}
-          <div
-            className="pr-2 cursor-pointer opacity-100 hover:opacity-60 transition-opacity duration-200"
+          <button
+            className={`pr-2 transition-opacity duration-200 ${
+              disableActions
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer opacity-100 hover:opacity-60"
+            }`}
             onClick={handleShare}
             title="Share link"
+            disabled={disableActions}
           >
             <ShareIcon color="white" />
-          </div>
+          </button>
 
           {/* Delete Button */}
-          <div
-            className="cursor-pointer opacity-100 hover:opacity-60 transition-opacity duration-200"
+          <button
+            className={`transition-opacity duration-200 ${
+              disableActions
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer opacity-100 hover:opacity-60"
+            }`}
             onClick={handleDelete}
             title="Delete content"
+            disabled={disableActions}
           >
             <DeleteIcon className="text-white" />
-          </div>
+          </button>
         </div>
       </div>
 
