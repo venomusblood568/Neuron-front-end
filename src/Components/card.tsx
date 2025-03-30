@@ -115,20 +115,23 @@ export function Card({ id, title, link, type }: CardProps) {
           <NeuronIcon className="text-white pr-2" />
           <h1 className="truncate">{title || "Untitled Post"}</h1>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
+          {/* Share Button */}
           <div
-            className="pr-2  cursor-pointer"
+            className="pr-2 cursor-pointer opacity-100 hover:opacity-60 transition-opacity duration-200"
             onClick={handleShare}
             title="Share link"
           >
             <ShareIcon color="white" />
           </div>
+
+          {/* Delete Button */}
           <div
-            className="cursor-pointe"
+            className="cursor-pointer opacity-100 hover:opacity-60 transition-opacity duration-200"
             onClick={handleDelete}
             title="Delete content"
           >
-            <DeleteIcon className="currentColor" />
+            <DeleteIcon className="text-white" />
           </div>
         </div>
       </div>
