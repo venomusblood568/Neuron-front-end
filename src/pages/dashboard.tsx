@@ -8,6 +8,7 @@ import { SideBar } from "../Components/sidebar";
 import { useContent } from "../hooks/useContent";
 import axios from "axios";
 import { BACKEND_URL } from "../config"; // Make sure this is properly configured
+import { toast } from "react-toastify";
 
 export function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
@@ -28,16 +29,18 @@ export function Dashboard() {
       const shareUrl = `${window.location.origin}/share/${response.data.hash}`;
 
       // Copy to clipboard
-      try {
-        await navigator.clipboard.writeText(shareUrl);
-        alert(`Share link copied to clipboard!\n${shareUrl}`);
-      } catch (clipboardError) {
-        // Fallback if clipboard API isn't available
-        prompt("Copy this share link:", shareUrl);
+      await navigator.clipboard.writeText(shareUrl)
+      toast.success("Link copied! Share your Neuron.",{
+        position:"bottom-right",
+        autoClose:2000
       }
+      )
     } catch (error) {
       console.error("Sharing failed:", error);
-      alert("Error generating share link");
+      toast.error("Error generating share link",{
+        position:"bottom-right",
+        autoClose:2000
+      });
     }
   };
 

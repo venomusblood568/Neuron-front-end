@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
+
 export function SharePage() {
   const navigate = useNavigate();
   const { hash } = useParams();
@@ -14,6 +15,7 @@ export function SharePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    
     const fetchSharedContent = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/api/v1/brain/${hash}`);
@@ -40,7 +42,12 @@ export function SharePage() {
   }
 
   if(loading){
-    return <div className="text-white text-center p-8">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen text-white text-center text-3xl">
+        Loading...
+      </div>
+    );
+    
   }
   if (error) {
     return (
@@ -55,6 +62,7 @@ export function SharePage() {
 
   return (
     <div className="flex">
+      
       {/* Sidebar */}
       <div className="h-screen bg-black border-darkPurple border-r-2 w-56 fixed left-0 top-0 flex flex-col">
         <div className="flex items-center justify-center text-white text-3xl p-5 m-5 tracking-widest">
