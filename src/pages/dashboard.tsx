@@ -50,6 +50,7 @@ export function Dashboard() {
     }
   }, [modelOpen]);
 
+  
   return (
     <div>
       <SideBar />
@@ -65,7 +66,7 @@ export function Dashboard() {
           <div className="opacity-100 hover:opacity-80 transition-opacity duration-200">
             <Button
               variant="secondary"
-              text="Share"
+              text="Share Neuron"
               startIcon={<ShareIcon />}
               onClick={handleShare}
             />

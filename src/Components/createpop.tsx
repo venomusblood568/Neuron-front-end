@@ -3,7 +3,7 @@ import { CrossIcon } from "../icon/cross";
 import { Button } from "./button";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
-
+import { toast } from "react-toastify";
 enum ContentType{
   Youtube = "youtube",
   Content = "article",
@@ -24,7 +24,12 @@ export function CreateContentModel({ open, onClose }) {
       alert("Please enter both title and link");
       return;
     }
-
+    function contentadded(){
+        toast.success("Content Added Succesfully!!",{
+          position:"bottom-right",
+          autoClose:3000    
+        })
+      }
     setLoading(true);
     try {
       await axios.post(
@@ -40,6 +45,7 @@ export function CreateContentModel({ open, onClose }) {
           },
         }
       );
+      contentadded()
       onClose();
     } catch (error) {
       console.error("Failed to add content:", error);
