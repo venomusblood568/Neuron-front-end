@@ -8,12 +8,12 @@ interface InputProps {
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ placeholder, reference }: InputProps, ref) => {
     return (
-      <div>
+      <div className="gap-2">
         <input
-          ref={reference || ref} 
+          ref={reference || ref}
           placeholder={placeholder}
           type="text"
-          className="px-4 py-2 border rounded m-2"
+          className="inline-flex items-center px-4 py-2 rounded-md font-light cursor-pointer border rounded flex justify-center pt-3 gap-2"
         />
       </div>
     );

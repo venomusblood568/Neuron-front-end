@@ -49,20 +49,30 @@ export function Login() {
       });
     }
   }
-
+  function signinPage(){
+    navigate("/signup");
+  }
   return (
     <div className="h-screen w-screen bg-black flex justify-center items-center">
-      <div className="bg-white rounded-xl min-w-72 p-8">
-        <h1 className="text-center p-2 text-darkPurple text-[30px]">ᒪOᘜIᑎ</h1>
+      <div className="bg-white rounded-xl min-w-72 p-10">
+        <h1 className="text-center gap-2 p-2 text-darkPurple text-[30px]">
+          ᒪOᘜIᑎ
+        </h1>
         <Input reference={usernameRef} placeholder="Username" />
+        <br />
         <Input reference={passwordRef} placeholder="Password" type="password" />
-        <div className="flex justify-center pt-4 gap-3">
+
+        <div className="flex justify-center pt-3 gap-4 items-center">
           <Button
             onClick={login}
             loading={false}
             variant="primary"
             text="Login"
+            fullwidth={true}
           />
+        </div>
+        <div onClick={signinPage} className="m-2 cursor-pointer hover:text-darkPurple">
+          Signin Account
         </div>
       </div>
     </div>

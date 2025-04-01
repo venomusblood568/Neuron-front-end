@@ -45,6 +45,7 @@ export function SideBar(){
         <SidebarItems text=" YOUTUBE " icon={<YoutubeIcon />} />
         <SidebarItems text=" LINK DUMP " icon={<LinkIcon />} />
         <div className="absolute bottom-4 w-full flex flex-col items-center duration-300 cursor-pointer px-4 rounded-md py-2 gap-2">
+          
           <hr className="border-darkPurple w-full" />
           <SidebarItems text={username} icon={<ProfileIcon />} />
           <hr />

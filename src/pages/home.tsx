@@ -1,12 +1,26 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export function Home() {
   const navigate = useNavigate()
+  
+  function infopopup(){
+    toast.info("Username should be more than 6 character text & number",{
+      position:"bottom-right",
+      autoClose:10000
+    })
+    toast.info("Password should be more than 6 character text & number",{
+      position:"bottom-right",
+      autoClose:10000
+    })
+  }
+  
   async function login() {
     navigate("/login");
    }
     async function signup() {
-    navigate("/signup");
+      infopopup()
+      navigate("/signup");
     }
 
   return (
