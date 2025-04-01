@@ -1,16 +1,33 @@
 import { Button } from "../Components/button";
-import { useNavigate } from "react-router-dom";
-import { useContent } from "../hooks/useContent";
+import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "../Components/card";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 export function SharePage() {
   const navigate = useNavigate();
-  const { contents, refresh } = useContent();
+  const { hash } = useParams();
+  const [sharedContent, setSharedContent] = useState([]); 
+  const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    refresh();
-  }, []);
+    const fetchSharedContent = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/brain/${hash}`);
+        setSharedContent(response.data.content);
+        setUsername(response.data.username);
+        setLoading(false);
+      } catch (error) {
+        setError("Invalid or expired share link");
+        setLoading(false);
+      }
+    };
+
+    fetchSharedContent();
+  }, [hash]);
 
   function signup_page() {
     navigate("/signup");
@@ -20,6 +37,20 @@ export function SharePage() {
   }
   function login_page() {
     navigate("/login");
+  }
+
+  if(loading){
+    return <div className="text-white text-center p-8">Loading...</div>;
+  }
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen text-white text-center text-3xl">
+        {error} <br /> 
+        <div className="hover:text-darkPurple">
+          <Button text="Please return Home" onClick={home_page} className="mt-4" />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -69,21 +100,25 @@ export function SharePage() {
       <div className="ml-56 flex-1 p-10 relative">
         {/* Page Title */}
         <h1 className="absolute top-4 right-4 text-darkPurple text-5xl font-extrabold tracking-wide">
-          Sam's <span className="text-white">Neuron</span>
+          {username}'s <span className="text-white">Neuron</span>
         </h1>
 
         {/* Content Cards Grid */}
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12  w-full mt-12">
-          {contents.map((content) => (
-            <Card
-              key={content._id}
-              id={content._id}
-              type={content.type}
-              link={content.link}
-              title={content.title}
-              disableActions={true}
-            />
-          ))}
+          {sharedContent.map(
+            (
+              content 
+            ) => (
+              <Card
+                key={content._id}
+                id={content._id}
+                type={content.type}
+                link={content.link}
+                title={content.title}
+                disableActions={true}
+              />
+            )
+          )}
         </div>
       </div>
     </div>
