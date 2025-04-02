@@ -59,7 +59,7 @@ export function SignUp() {
         </h1>
         <Input reference={usernameRef} placeholder="Username" />
         <br />
-        <Input reference={passwordRef} placeholder="Password" />
+        <Input reference={passwordRef} placeholder="Password" type="password"/>
         <div className="fflex justify-center pt-3 gap-4 items-center">
           <Button
             onClick={signup}
