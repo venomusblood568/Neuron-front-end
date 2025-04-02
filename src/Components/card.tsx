@@ -167,12 +167,21 @@ export function Card({
             className="block h-full"
           >
             {getYouTubeThumbnail() ? (
-              <img
-                className="w-full h-full object-cover rounded-lg"
-                src={getYouTubeThumbnail()!}
-                alt="YouTube Thumbnail"
-                onError={(e) => (e.currentTarget.src = defaultImage)}
-              />
+              <div className="relative h-full">
+                <img
+                  className="w-full h-full object-cover rounded-lg"
+                  src={getYouTubeThumbnail()!}
+                  alt="YouTube Thumbnail"
+                  onError={(e) => (e.currentTarget.src = defaultImage)}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+                  <p className="text-white font-medium truncate">
+                    {title || "Read more"}
+                  </p>
+
+                  <p className="text-gray-300 text-sm">Click to view</p>
+                </div>
+              </div>
             ) : (
               <div className="h-full flex items-center justify-center text-red-400">
                 Invalid YouTube URL

@@ -87,26 +87,21 @@ export function CreateContentModel({ open, onClose }) {
           <div className="flex flex-col gap-4">
             <Input reference={titleRef} placeholder="Title" />
             <Input reference={linkRef} placeholder="Link" />
+            
           </div>
           <div>
             <h2 className="text-center p-2"></h2>
             <div className="flex gap-5 justify-center pb-2">
+              <p className="flex items-center">Link Type → </p>
               <Button
                 text="Youtube"
                 variant={type === ContentType.Youtube ? "primary" : "secondary"}
                 onClick={() => setType(ContentType.Youtube)}
               />
               <Button
-                text="Article"
+                text="Other Link"
                 variant={type === ContentType.Content ? "primary" : "secondary"}
                 onClick={() => setType(ContentType.Content)}
-              />
-              <Button
-                text="Link Dump"
-                variant={
-                  type === ContentType.LinkDump ? "primary" : "secondary"
-                }
-                onClick={() => setType(ContentType.LinkDump)}
               />
             </div>
           </div>
