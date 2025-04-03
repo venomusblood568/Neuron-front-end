@@ -66,6 +66,7 @@ export function SideBar(){
       </div>
       <div className="w-full p-4 border-t border-darkPurple mt-auto">
         <SidebarItems text={username || "User"} icon={<ProfileIcon />} />
+        <br />
         <Logout onClick={logouthandler} icon={<LogoutIcon />} text="Logout" />
       </div>
     </div>

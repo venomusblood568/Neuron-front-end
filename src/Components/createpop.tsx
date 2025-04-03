@@ -83,20 +83,34 @@ export function CreateContentModel({ open, onClose }) {
             </div>
           </div>
 
-          {/* Input Fields */}
+          {/* Form Container */}
           <div className="flex flex-col gap-4">
             <Input reference={titleRef} placeholder="Title" />
             <Input reference={linkRef} placeholder="Link" />
-            
-          </div>
-          <div>
-            <h2 className="text-center p-2"></h2>
-            <div className="flex gap-5 justify-center pb-2">
-              <p className="flex items-center">Link Type → </p>
+
+            {/* Dropdown Menu */}
+            <div className="flex items-center gap-3">
+              <p className="whitespace-nowrap">Collection →</p>
+              <select className="py-2 border rounded w-full p-2">
+                <option value="" disabled selected hidden>
+                  Select a Collection
+                </option>
+                <option value="project">Project</option>
+                <option value="area">Area</option>
+                <option value="resource">Resource</option>
+                <option value="archives">Archives</option>
+                <option value="experiment">Experiment</option>
+              </select>
+            </div>
+
+            {/* Link Type Selection */}
+            <div className="flex items-center gap-3">
+              <p className="whitespace-nowrap">Link Type →</p>
               <Button
                 text="Youtube"
                 variant={type === ContentType.Youtube ? "primary" : "secondary"}
                 onClick={() => setType(ContentType.Youtube)}
+                
               />
               <Button
                 text="Other Link"
@@ -120,6 +134,7 @@ export function CreateContentModel({ open, onClose }) {
       </div>
     )
   );
+
 }
 
 function Input({ reference, placeholder }) {
