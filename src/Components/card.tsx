@@ -11,6 +11,7 @@ interface CardProps {
   title: string;
   link: string;
   disableActions?: boolean;
+  tag?:string
   type: "twitter" | "youtube" | "medium" | "article" | "blog" | "instagram";
 }
 
@@ -19,12 +20,18 @@ export function Card({
   title,
   link,
   type,
+  tag,
   disableActions = false,
 }: CardProps) {
   const { deleteContent, refresh } = useContent();
   const formattedLink = link.replace("x.com", "twitter.com");
   const [thumbnail, setThumbnail] = useState<string | null>(null);
   const defaultImage = "https://source.unsplash.com/400x300/?technology,code";
+
+  const formatTag = (tag:string | undefined) =>{
+    if(!tag) return "Untagged";
+    return tag.charAt(0).toUpperCase() + tag.slice(1)
+  }
 
   // Thumbnail fetching effect
   useEffect(() => {
@@ -125,7 +132,12 @@ export function Card({
           <NeuronIcon className="text-white pr-2" />
           <div className="truncate">
             <h1 className="truncate">{title || "Untitled Post"}</h1>
-            <h2 className="text-sm text-gray-400">Tag:</h2>
+            <h2 className="text-sm text-gray-400">
+              Collection:{" "}
+              <span>
+                {formatTag(tag)}
+              </span>
+            </h2>
           </div>
         </div>
         <div className="flex items-center space-x-2">

@@ -14,16 +14,23 @@ export function CreateContentModel({ open, onClose }) {
   const modalRef = useRef(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const linkRef = useRef<HTMLInputElement>(null);
+  
   const [type, setType] = useState(ContentType.Youtube);
   const [loading, setLoading] = useState(false);
+  const [selectedCollection ,setselectedCollection] = useState("") 
 
   async function addContent() {
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
-    if (!title || !link) {
-      alert("Please enter both title and link");
+
+    if (!title || !link || !selectedCollection) {
+      toast.error("Please enter title, link and select a collection",{
+        position:"bottom-right",
+        autoClose:4000,
+      })
       return;
     }
+
     function contentadded(){
         toast.success("Content Added Succesfully!!",{
           position:"bottom-right",
@@ -38,6 +45,7 @@ export function CreateContentModel({ open, onClose }) {
           link,
           title,
           type,
+          tag:selectedCollection,
         },
         {
           headers: {
@@ -87,11 +95,14 @@ export function CreateContentModel({ open, onClose }) {
           <div className="flex flex-col gap-4">
             <Input reference={titleRef} placeholder="Title" />
             <Input reference={linkRef} placeholder="Link" />
-
+            
             {/* Dropdown Menu */}
             <div className="flex items-center gap-3">
               <p className="whitespace-nowrap">Collection →</p>
-              <select className="py-2 border rounded w-full p-2">
+              <select 
+                onChange={(e) => setselectedCollection(e.target.value)}
+                value={selectedCollection} 
+                className="py-2 border rounded w-full p-2">
                 <option value="" disabled selected hidden>
                   Select a Collection
                 </option>
@@ -111,7 +122,6 @@ export function CreateContentModel({ open, onClose }) {
                 text="Youtube"
                 variant={type === ContentType.Youtube ? "primary" : "secondary"}
                 onClick={() => setType(ContentType.Youtube)}
-                
               />
               <Button
                 text="Other Link"
