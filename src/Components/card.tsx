@@ -123,7 +123,10 @@ export function Card({
       <div className="flex justify-between text-white">
         <div className="flex items-center text-md gap-2 truncate">
           <NeuronIcon className="text-white pr-2" />
-          <h1 className="truncate">{title || "Untitled Post"}</h1>
+          <div className="truncate">
+            <h1 className="truncate">{title || "Untitled Post"}</h1>
+            <h2 className="text-sm text-gray-400">Tag:</h2>
+          </div>
         </div>
         <div className="flex items-center space-x-2">
           {/* Share Button */}
