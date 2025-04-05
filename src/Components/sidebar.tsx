@@ -12,11 +12,17 @@ import { ArchiveIcon } from "../icon/archieve";
 import { ExperimentIcon } from "../icon/experiment";
 import { RandomIcon } from "../icon/random";
 
-export function SideBar(){
+interface sidebarProps{
+  onFilterChange:(tag:string) => void
+}
+
+
+export function SideBar({onFilterChange}:sidebarProps){
   
   const [username, setUsername] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
 
@@ -25,6 +31,11 @@ export function SideBar(){
     }
     setUsername(storedUsername);
   }, [navigate]);
+
+  const handleFilterClick = (tag:string) => {
+    setActiveFilter(tag === activeFilter ? null : tag);
+    onFilterChange(tag === activeFilter ? "" : tag); 
+  }
 
   async function logouthandler() {
     localStorage.removeItem("username");
@@ -58,12 +69,42 @@ export function SideBar(){
       </div>
       <div className="flex-1 overflow-y-auto py-2">
         <div className="text-white pt-2 text-1xl flex flex-col gap-2 items-center justify-center p-4 w-full max-w-md px-4">
-          <SidebarItems text=" PROJECTS " icon={<ContentIcon />} />
-          <SidebarItems text=" AREAS " icon={<AreaIcon />} />
-          <SidebarItems text=" RESOURCES " icon={<LinkIcon />} />
-          <SidebarItems text=" ARCHIVES " icon={<ArchiveIcon />} />
-          <SidebarItems text=" EXPERIMENTS " icon={<ExperimentIcon />} />
-          <SidebarItems text=" Random Link Dump" icon={<RandomIcon/>} />
+          <SidebarItems
+            active={activeFilter === "projects"}
+            onClick={() => handleFilterClick("project")}
+            text=" PROJECTS "
+            icon={<ContentIcon />}
+          />
+          <SidebarItems
+            active={activeFilter === "area"}
+            onClick={() => handleFilterClick("area")}
+            text=" AREAS "
+            icon={<AreaIcon />}
+          />
+          <SidebarItems
+            active={activeFilter === "resources"}
+            onClick={() => handleFilterClick("resources")}
+            text=" RESOURCES "
+            icon={<LinkIcon />}
+          />
+          <SidebarItems
+            active={activeFilter === "archives"}
+            onClick={() => handleFilterClick("archives")}
+            text=" ARCHIVES "
+            icon={<ArchiveIcon />}
+          />
+          <SidebarItems
+            active={activeFilter === "experiment"}
+            onClick={() => handleFilterClick("experiment")}
+            text=" EXPERIMENTS "
+            icon={<ExperimentIcon />}
+          />
+          <SidebarItems
+            active={activeFilter === "random"}
+            onClick={() => handleFilterClick("random")}
+            text=" Random Link Dump"
+            icon={<RandomIcon />}
+          />
         </div>
       </div>
       <div className="w-full p-4 border-t border-darkPurple mt-auto">

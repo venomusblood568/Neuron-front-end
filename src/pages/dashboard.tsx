@@ -13,7 +13,9 @@ import { toast } from "react-toastify";
 export function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
   const { contents, refresh, deleteContent } = useContent();
+  const [activeTag, setActiveTag] = useState("");
 
+  const filteredContents = activeTag ? contents.filter(content => content.tag === activeTag) : contents;
   const handleShare = async () => {
     try {
       const response = await axios.post(
@@ -53,7 +55,7 @@ export function Dashboard() {
   
   return (
     <div>
-      <SideBar />
+      <SideBar onFilterChange={(tag) => setActiveTag(tag)} />
       <div className="p-3 bg-black ml-56 min-screen ">
         <CreateContentModel
           open={modelOpen}
@@ -80,9 +82,20 @@ export function Dashboard() {
             />
           </div>
         </div>
-
+        {activeTag && (
+          <div className="text-white mb-4 p-2">
+            Showing collection: <span className="font-bold">{activeTag}</span>
+            <div className="gap-2">
+              <Button
+                onClick={() => setActiveTag("")}
+                text="Clear Filter"
+                variant="primary"
+              ></Button>
+            </div>
+          </div>
+        )}
         <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">
-          {contents.map((content) => (
+          {filteredContents.map((content) => (
             <Card
               key={content._id}
               id={content._id}
