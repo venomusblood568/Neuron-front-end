@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { SideBar } from "../Components/sidebar";
 import { useContent } from "../hooks/useContent";
 import axios from "axios";
-import { BACKEND_URL } from "../config"; // Make sure this is properly configured
+import { BACKEND_URL } from "../config"; 
 import { toast } from "react-toastify";
 
 export function Dashboard() {

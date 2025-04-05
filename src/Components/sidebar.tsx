@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { AreaIcon } from "../icon/areas";
 import { ArchiveIcon } from "../icon/archieve";
 import { ExperimentIcon } from "../icon/experiment";
+import { RandomIcon } from "../icon/random";
 
 export function SideBar(){
   
@@ -62,6 +63,7 @@ export function SideBar(){
           <SidebarItems text=" RESOURCES " icon={<LinkIcon />} />
           <SidebarItems text=" ARCHIVES " icon={<ArchiveIcon />} />
           <SidebarItems text=" EXPERIMENTS " icon={<ExperimentIcon />} />
+          <SidebarItems text=" Random Link Dump" icon={<RandomIcon/>} />
         </div>
       </div>
       <div className="w-full p-4 border-t border-darkPurple mt-auto">

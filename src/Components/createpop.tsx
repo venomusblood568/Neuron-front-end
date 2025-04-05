@@ -100,6 +100,7 @@ export function CreateContentModel({ open, onClose }) {
                 <option value="resource">Resource</option>
                 <option value="archives">Archives</option>
                 <option value="experiment">Experiment</option>
+                <option value="random">Random Link dump</option>
               </select>
             </div>
 
