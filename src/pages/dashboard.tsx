@@ -3,7 +3,7 @@ import { ShareIcon } from "../icon/shareIcon";
 import { PlusIcon } from "../icon/plusIcon";
 import { Card } from "../Components/card";
 import { CreateContentModel } from "../Components/createpop";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SideBar } from "../Components/sidebar";
 import { useContent } from "../hooks/useContent";
 import axios from "axios";
@@ -15,7 +15,16 @@ export function Dashboard() {
   const { contents, refresh, deleteContent } = useContent();
   const [activeTag, setActiveTag] = useState("");
 
-  const filteredContents = activeTag ? contents.filter(content => content.tag === activeTag) : contents;
+   const filteredContents = useMemo(() => {
+     if (!activeTag) return contents;
+
+     return contents.filter((content) => {
+       const contentTag = content.tag?.toString().toLowerCase().trim() || "";
+       const searchTag = activeTag.toLowerCase().trim();
+       return contentTag.includes(searchTag); // More flexible matching
+     });
+   }, [contents, activeTag]);
+
   const handleShare = async () => {
     try {
       const response = await axios.post(
@@ -55,7 +64,7 @@ export function Dashboard() {
   
   return (
     <div>
-      <SideBar onFilterChange={(tag) => setActiveTag(tag)} />
+      <SideBar onFilterChange={(tag) => setActiveTag(tag || "")} />
       <div className="p-3 bg-black ml-56 min-screen ">
         <CreateContentModel
           open={modelOpen}

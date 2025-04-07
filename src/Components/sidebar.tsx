@@ -82,8 +82,8 @@ export function SideBar({onFilterChange}:sidebarProps){
             icon={<AreaIcon />}
           />
           <SidebarItems
-            active={activeFilter === "resources"}
-            onClick={() => handleFilterClick("resources")}
+            active={activeFilter === "resource"}
+            onClick={() => handleFilterClick("resource")}
             text=" RESOURCES "
             icon={<LinkIcon />}
           />
