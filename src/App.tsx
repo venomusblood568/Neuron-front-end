@@ -11,14 +11,15 @@ import {SharePage} from "./pages/sharepage";
 function App() {
   return (
     <>
-      <ToastContainer /> 
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/share/:hash" element={<SharePage/>} />
+          <Route path="/share/:hash" element={<SharePage />} />
+          
         </Routes>
       </BrowserRouter>
     </>
