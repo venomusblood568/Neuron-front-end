@@ -80,7 +80,7 @@ export function SignUp() {
             onClick={signup}
             className="px-6 py-2 bg-darkPurple/90 hover:bg-lightPurple text-white rounded-full hover:shadow-glow transition-all duration-300"
           >
-            SignUp
+            Signup
           </button>
           <button
             onClick={loginPage}
