@@ -1,27 +1,51 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
+import { useEffect } from "react";
+import { BACKEND_URL } from "../config";
+
 
 export function Home() {
-  const navigate = useNavigate()
-  
-  function infopopup(){
-    toast.info("Username should be more than 6 character text & number",{
-      position:"bottom-right",
-      autoClose:10000
-    })
-    toast.info("Password should be more than 6 character text & number",{
-      position:"bottom-right",
-      autoClose:10000
-    })
+  const navigate = useNavigate();
+
+  function infopopup() {
+    toast.info("Username should be more than 6 character text & number", {
+      position: "bottom-right",
+      autoClose: 10000,
+    });
+    toast.info("Password should be more than 6 character text & number", {
+      position: "bottom-right",
+      autoClose: 10000,
+    });
   }
-  
+
   async function login() {
     navigate("/login");
-   }
-    async function signup() {
-      infopopup()
-      navigate("/signup");
+  }
+  async function signup() {
+    infopopup();
+    navigate("/signup");
+  }
+  useEffect(() => {
+    const checkbackendConnection = async () =>{
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/ping`)
+        if(response.status === 200){
+          toast.success("✅ Connected to backend",{
+            position:"bottom-right",
+            autoClose:2000
+          });
+        }
+      } catch (error) {
+        toast.error("❌ Backend not reachable",{
+          position:"bottom-right",
+          autoClose:2000
+        });
+      }
     }
+    checkbackendConnection()
+  },[])
+
 
   return (
     <div className="relative h-screen w-full flex items-center justify-center text-center">
