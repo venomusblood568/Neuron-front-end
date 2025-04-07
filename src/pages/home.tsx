@@ -92,17 +92,17 @@ export function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow relative pt-24">
-        <div className="container mx-auto px-4 py-16">
+      <main className="flex flex-col justify-center items-center min-h-screen pt-24 relative">
+        <div className="container mx-auto px-4 py-16 ">
           {/* Hero Section */}
           <div className="text-center mb-20 relative z-10">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in-up">
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in-up gap-2">
               Your Digital Second Brain
               <div className="absolute inset-0 bg-purple-500/10 blur-3xl -z-10" />
             </h1>
-            <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-8">
-              Neuron is your all-in-one space to capture and organize ideas,
-              inspiration, memories, and everything that matters.
+            <p className="text-gray-300 text-lg md:text-1xl max-w-2xl mx-auto mb-8 gap-2">
+              Neuron is your space to store and organize thoughts, inspiration
+              and knowledge.
             </p>
             <div className="text-center relative z-10">
               <h2 className="text-3xl font-bold text-white mb-6">
@@ -112,7 +112,7 @@ export function Home() {
               <div className="flex justify-center gap-4">
                 <button
                   onClick={signup}
-                  className="px-8 py-4 bg-darkPurple hover:bg-lightPurple text-white rounded-xl hover:shadow-glow transition-all duration-300 relative overflow-hidden"
+                  className="gap-2 px-8 py-4 bg-darkPurple hover:bg-lightPurple text-white rounded-xl hover:shadow-glow transition-all duration-300 relative overflow-hidden"
                 >
                   <span className="relative z-10">Get Started</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-transparent opacity-0 hover:opacity-100 transition-opacity" />
