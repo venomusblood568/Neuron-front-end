@@ -125,7 +125,11 @@ export function Card({
   }, [type]);
 
   return (
-    <div className="p-2 rounded-md border-darkPurple max-w-72 border min-h-48 min-w-72 shadow-xl hover:transform hover:scale-103 transition-all duration-200">
+    <div
+      className=" p-3 rounded-2xl border-2 border-darkPurple bg-black/60 backdrop-blur-sm text-white 
+             shadow-lg hover:scale-105 transition-transform duration-300"
+    >
+      {" "}
       {/* Header Section */}
       <div className="flex justify-between text-white">
         <div className="flex items-center text-md gap-2 truncate">
@@ -133,10 +137,7 @@ export function Card({
           <div className="truncate">
             <h1 className="truncate">{title || "Untitled Post"}</h1>
             <h2 className="text-sm text-gray-400">
-              Collection:{" "}
-              <span>
-                {formatTag(tag)}
-              </span>
+              Collection: <span>{formatTag(tag)}</span>
             </h2>
           </div>
         </div>
@@ -170,7 +171,6 @@ export function Card({
           </button>
         </div>
       </div>
-
       {/* Content Section */}
       <div className="py-2 h-[calc(100%-3rem)]">
         {/* YouTube Video */}

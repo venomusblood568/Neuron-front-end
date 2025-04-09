@@ -63,7 +63,8 @@ export function Dashboard() {
 
   
   return (
-    <div>
+    <div className="relative min-h-screen flex flex-col">
+      <div className="fixed inset-0 bg-grid-light-purple opacity-60 pointer-events-none" />
       <SideBar onFilterChange={(tag) => setActiveTag(tag || "")} />
       <div className="p-3 bg-black ml-56 min-screen ">
         <CreateContentModel

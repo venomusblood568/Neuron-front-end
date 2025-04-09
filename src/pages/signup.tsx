@@ -154,7 +154,9 @@ export function SignUp() {
             rel="noopener noreferrer"
             className="hover:text-lightPurple transition-colors"
           >
-            <NeuronIcon className="w-5 h-5" />
+            <div className="w-5 h-5">
+              <NeuronIcon />
+            </div>
           </a>
         </div>
         <div className="h-4 w-px bg-gray-500/50"></div>

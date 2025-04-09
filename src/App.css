@@ -1,7 +1,14 @@
 @import "tailwindcss";
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #000000; /* ✅ Fixed semicolon */
+  min-height: 100vh;
+}
 @theme {
   --color-darkPurple: #5147e5;
   --color-lightPurple: #e1e7ff;
+  --color-bgBlack: #000000;
 }
 /* Custom background grid pattern */
 .bg-grid-light-purple {

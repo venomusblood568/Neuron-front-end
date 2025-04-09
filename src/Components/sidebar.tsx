@@ -57,7 +57,7 @@ export function SideBar({onFilterChange}:sidebarProps){
     }, 4000);
   }
   return (
-    <div className="h-screen bg-black border-darkPurple  border-r-2 w-56 fixed left-0  top-0 flex flex-col">
+    <div className="h-screen border-darkPurple  border-r-2 w-56 fixed left-0  top-0 flex flex-col">
       <div className="flex items-center justify-center text-white text-3xl p-5 m-5 tracking-widest">
         <a
           onClick={madeby}
