@@ -6,8 +6,9 @@ import { BACKEND_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { NeuronIcon } from "../icon/neuronIcon";
+import GithubIcon from "../icon/github";
+import { Linkedin } from "../icon/linkedn";
 
 export function Login() {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -135,37 +136,42 @@ export function Login() {
 
       {/* Floating Footer */}
       <footer className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-lg rounded-full px-10 py-4 text-sm text-gray-400 shadow-xl border border-purple-500/30 flex items-center gap-6">
-        <div className="flex items-center space-x-4">
-          <a
-            href="https://github.com/venomusblood568"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-lightPurple transition-colors"
-          >
-            <FaGithub className="w-5 h-5" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/gourav-anand-jha/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-lightPurple transition-colors"
-          >
-            <FaLinkedin className="w-5 h-5" />
-          </a>
-          <a
-            href="https://venomusblood568.github.io/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-lightPurple transition-colors"
-          >
-            <div className="w-5 h-5">
-              <NeuronIcon />
-            </div>
-          </a>
-        </div>
-        <div className="h-4 w-px bg-gray-500/50"></div>
-        <span>© {new Date().getFullYear()} Neuron. All rights reserved.</span>
-      </footer>
+              <div className="flex items-center space-x-4">
+                <a
+                  href="https://github.com/venomusblood568"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-lightPurple transition-colors"
+                >
+                  <div className="w-5 h-5">
+                    <GithubIcon/>
+                  </div>
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/gourav-anand-jha/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-lightPurple transition-colors"
+                >
+                  <div className="w-5 h-5 text-gray-400">
+                    <Linkedin />
+                  </div>
+                </a>
+                <a
+                  href="https://venomusblood568.github.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-lightPurple transition-colors"
+                >
+                  <div className="w-5 h-5">
+                    <NeuronIcon />
+                  </div>
+                </a>
+              </div>
+              <div className="h-4 w-px bg-gray-500/50"></div>
+              <span>© {new Date().getFullYear()} Neuron. All rights reserved.</span>
+            </footer>
+      
     </div>
   );
 }

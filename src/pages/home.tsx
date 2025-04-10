@@ -3,8 +3,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useEffect } from "react";
 import { BACKEND_URL } from "../config";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { NeuronIcon } from "../icon/neuronIcon";
+import { Linkedin } from "../icon/linkedn";
+import GithubIcon from "../icon/github";
 
 export function Home() {
   const navigate = useNavigate();
@@ -150,7 +151,9 @@ export function Home() {
             rel="noopener noreferrer"
             className="hover:text-lightPurple transition-colors"
           >
-            <FaGithub className="w-5 h-5" />
+            <div className="w-5 h-5">
+              <GithubIcon/>
+            </div>
           </a>
           <a
             href="https://www.linkedin.com/in/gourav-anand-jha/"
@@ -158,8 +161,8 @@ export function Home() {
             rel="noopener noreferrer"
             className="hover:text-lightPurple transition-colors"
           >
-            <div className="w-5 h-5">
-              <FaLinkedin />
+            <div className="w-5 h-5 text-gray-400">
+              <Linkedin />
             </div>
           </a>
           <a
