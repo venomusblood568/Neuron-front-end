@@ -4,6 +4,7 @@ import { Card } from "../Components/card";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { toast } from "react-toastify";
 
 type ContentType =
   | "twitter"
@@ -105,14 +106,28 @@ export function SharePage() {
       </div>
     );
   }
-
+  async function madeby(){
+      toast.info("🚀 Built with caffeine, code & heart by Sam.",{
+        position: "bottom-right",
+        autoClose:3000
+      })
+      setTimeout(() => {
+        window.open("https://github.com/venomusblood568", "_blank");
+      }, 4000);
+    }
   return (
-    <div className="flex">
+    <div className="relative min-h-screen flex flex-col">
+      <div className="fixed inset-0 bg-grid-light-purple opacity-60 pointer-events-none" />
       {/* Sidebar */}
-      <div className="h-screen bg-black border-darkPurple border-r-2 w-56 fixed left-0 top-0 flex flex-col">
+      <div className="h-screen  border-darkPurple border-r-2 w-56 fixed left-0 top-0 flex flex-col">
         <div className="flex items-center justify-center text-white text-3xl p-5 m-5 tracking-widest">
-          <span className="text-darkPurple">ᑎ</span>ᗴᑌᖇᗝ
-          <span className="text-darkPurple">ᑎ</span>
+          <a
+            onClick={madeby}
+            className="hover: hover:text-white hover:shadow-xl hover:scale-120 cursor-pointer"
+          >
+            <span className="text-darkPurple">ᑎ</span>ᗴᑌᖇᗝ
+            <span className="text-darkPurple">ᑎ</span>
+          </a>
         </div>
 
         {/* Navigation Buttons */}
@@ -152,7 +167,7 @@ export function SharePage() {
           {username}'s <span className="text-white">Neuron</span>
         </h1>
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 w-full mt-12">
+        <div className="grid grid-cols-4 gap-4 py-7 items-stretch w-full auto-rows-fr m-2 p-2">
           {sharedContent.map((content) => (
             <Card
               key={content._id}
