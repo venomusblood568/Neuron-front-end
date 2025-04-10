@@ -5,9 +5,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
+type ContentType =
+  | "twitter"
+  | "youtube"
+  | "medium"
+  | "article"
+  | "blog"
+  | "instagram";
+
 interface Content {
   _id: string;
-  type: any;
+  type: ContentType;
   link: string;
   title: string;
 }
@@ -31,7 +39,14 @@ export function SharePage() {
         const response = await axios.get<ShareResponse>(
           `${BACKEND_URL}/api/v1/brain/${hash}`
         );
-        setSharedContent(response.data.content);
+
+        // Validate content types
+        const validatedContent = response.data.content.map((item) => ({
+          ...item,
+          type: isValidContentType(item.type) ? item.type : "article",
+        }));
+
+        setSharedContent(validatedContent);
         setUsername(response.data.username);
         setLoading(false);
       } catch (error) {
@@ -50,6 +65,17 @@ export function SharePage() {
 
     fetchSharedContent();
   }, [hash]);
+
+  const isValidContentType = (type: string): type is ContentType => {
+    return [
+      "twitter",
+      "youtube",
+      "medium",
+      "article",
+      "blog",
+      "instagram",
+    ].includes(type);
+  };
 
   const signup_page = () => navigate("/signup");
   const home_page = () => navigate("/");
@@ -85,8 +111,8 @@ export function SharePage() {
       {/* Sidebar */}
       <div className="h-screen bg-black border-darkPurple border-r-2 w-56 fixed left-0 top-0 flex flex-col">
         <div className="flex items-center justify-center text-white text-3xl p-5 m-5 tracking-widest">
-          <a className="text-darkPurple">ᑎ</a>ᗴᑌᖇᗝ
-          <a className="text-darkPurple">ᑎ</a>
+          <span className="text-darkPurple">ᑎ</span>ᗴᑌᖇᗝ
+          <span className="text-darkPurple">ᑎ</span>
         </div>
 
         {/* Navigation Buttons */}
