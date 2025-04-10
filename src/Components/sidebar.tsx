@@ -108,7 +108,9 @@ export function SideBar({onFilterChange}:sidebarProps){
         </div>
       </div>
       <div className="w-full p-4 border-t border-darkPurple mt-auto">
-        <SidebarItems text={username || "User"} icon={<ProfileIcon />} />
+        <SidebarItems text={username || "User"} icon={<ProfileIcon />} onClick={function (): void {
+          throw new Error("Function not implemented.");
+        } } />
         <br />
         <Logout onClick={logouthandler} icon={<LogoutIcon />} text="Logout" />
       </div>

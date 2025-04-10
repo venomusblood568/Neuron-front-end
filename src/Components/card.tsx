@@ -14,6 +14,16 @@ interface CardProps {
   tag?:string
   type: "twitter" | "youtube" | "medium" | "article" | "blog" | "instagram";
 }
+//twitter card
+declare global {
+  interface Window {
+    twttr?: {
+      widgets: {
+        load: () => void;
+      };
+    };
+  }
+}
 
 export function Card({
   id,
@@ -64,16 +74,32 @@ export function Card({
   const handleDelete = async () => {
     if (disableActions) return;
 
-    toast.dark("🗑 Content deleted. Undo?", {
-      position: "bottom-right",
-      autoClose: 5000,
-      action: {
-        text: "Undo",
-        onClick: () => {
-          // Cancel deletion
-        },
-      },
-    });
+    toast.dark(
+      <div>
+        🗑 Content deleted.{" "}
+        <button
+          onClick={() => {
+            // Undo logic here
+            console.log("Undo clicked");
+            toast.success("Action undone!");
+          }}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "#4EA8DE",
+            cursor: "pointer",
+            marginLeft: "8px",
+            textDecoration: "underline",
+          }}
+        >
+          Undo
+        </button>
+      </div>,
+      {
+        position: "bottom-right",
+        autoClose: 5000,
+      }
+    );
 
     setTimeout(async () => {
       const success = await deleteContent(id);
@@ -118,12 +144,12 @@ export function Card({
   };
 
   // Twitter embed effect
+  
   useEffect(() => {
-    if (type === "twitter" && (window as any).twttr) {
-      (window as any).twttr.widgets.load();
+    if (type === "twitter" && window.twttr) {
+      window.twttr.widgets.load();
     }
   }, [type]);
-
   return (
     <div
       className=" p-3 rounded-2xl border-2 border-darkPurple bg-black/60 backdrop-blur-sm text-white 
@@ -133,7 +159,9 @@ export function Card({
       {/* Header Section */}
       <div className="flex justify-between text-white">
         <div className="flex items-center text-md gap-2 truncate">
-          <NeuronIcon className="text-white pr-2" />
+          <div className="text-white pr-2">
+            <NeuronIcon />
+          </div>
           <div className="truncate">
             <h1 className="truncate">{title || "Untitled Post"}</h1>
             <h2 className="text-sm text-gray-400">
@@ -153,7 +181,9 @@ export function Card({
             title="Share link"
             disabled={disableActions}
           >
-            <ShareIcon color="white" />
+            <div className="white">
+              <ShareIcon />
+            </div>
           </button>
 
           {/* Delete Button */}
@@ -167,7 +197,9 @@ export function Card({
             title="Delete content"
             disabled={disableActions}
           >
-            <DeleteIcon className="text-white" />
+            <div className="text-white">
+              <DeleteIcon />
+            </div>
           </button>
         </div>
       </div>

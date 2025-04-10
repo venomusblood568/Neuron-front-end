@@ -44,7 +44,7 @@ export function Login() {
       setTimeout(() => {
         navigate("/dashboard");
       }, 1500);
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error("❌ Login failed. Please check your credentials.", {
         position: "bottom-right",
         autoClose: 3000,
@@ -114,14 +114,13 @@ export function Login() {
             type="password"
           />
 
-          <div className="flex justify-center pt-3 gap-4 items-center">
+          <div className="flex justify-center pt-3 gap-4 items-center text-white">
             <Button
               onClick={login}
               loading={false}
               variant="primary"
               text="Login"
               fullwidth={true}
-              className="text-white"
             />
           </div>
 
@@ -159,7 +158,9 @@ export function Login() {
             rel="noopener noreferrer"
             className="hover:text-lightPurple transition-colors"
           >
-            <NeuronIcon className="w-5 h-5" />
+            <div className="w-5 h-5">
+              <NeuronIcon />
+            </div>
           </a>
         </div>
         <div className="h-4 w-px bg-gray-500/50"></div>

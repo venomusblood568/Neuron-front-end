@@ -1,4 +1,14 @@
-export const ShareIcon = ({onclick,color = "currentColor"}:{onclick?:() => void}) => {
+import { FC } from "react";
+
+type ShareIconProps = {
+  onClick?: () => void;
+  color?: string;
+};
+
+export const ShareIcon: FC<ShareIconProps> = ({
+  onClick,
+  color = "currentColor",
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,7 +17,7 @@ export const ShareIcon = ({onclick,color = "currentColor"}:{onclick?:() => void}
       strokeWidth={1.5}
       stroke={color}
       className="w-6 h-6"
-      onClick={onclick}
+      onClick={onClick}
     >
       <path
         strokeLinecap="round"

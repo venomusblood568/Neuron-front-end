@@ -7,50 +7,60 @@ import { useEffect, useMemo, useState } from "react";
 import { SideBar } from "../Components/sidebar";
 import { useContent } from "../hooks/useContent";
 import axios from "axios";
-import { BACKEND_URL } from "../config"; 
+import { BACKEND_URL } from "../config";
 import { toast } from "react-toastify";
 
+// Define content item type based on usage
+type ContentType = {
+  _id: string;
+  type: any;
+  link: string;
+  title: string;
+  tag?: string;
+};
+
 export function Dashboard() {
-  const [modelOpen, setModelOpen] = useState(false);
-  const { contents, refresh, deleteContent } = useContent();
-  const [activeTag, setActiveTag] = useState("");
+  const [modelOpen, setModelOpen] = useState<boolean>(false);
+  const { contents, refresh } = useContent();
+  const [activeTag, setActiveTag] = useState<string>("");
 
-   const filteredContents = useMemo(() => {
-     if (!activeTag) return contents;
+  const filteredContents = useMemo(() => {
+    if (!activeTag) return contents;
 
-     return contents.filter((content) => {
-       const contentTag = content.tag?.toString().toLowerCase().trim() || "";
-       const searchTag = activeTag.toLowerCase().trim();
-       return contentTag.includes(searchTag); // More flexible matching
-     });
-   }, [contents, activeTag]);
+    return contents.filter((content: ContentType) => {
+      const contentTag = content.tag?.toString().toLowerCase().trim() || "";
+      const searchTag = activeTag.toLowerCase().trim();
+      return contentTag.includes(searchTag);
+    });
+  }, [contents, activeTag]);
 
   const handleShare = async () => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) throw new Error("No token found");
+
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/brain/share`,
         { share: true },
         {
           headers: {
-            Authorization: localStorage.getItem("token"),
+            Authorization: token,
           },
         }
       );
 
       const shareUrl = `${window.location.origin}/share/${response.data.hash}`;
 
-      // Copy to clipboard
-      await navigator.clipboard.writeText(shareUrl)
-      toast.success("Link copied! Share your Neuron.",{
-        position:"bottom-right",
-        autoClose:2000
-      }
-      )
+      await navigator.clipboard.writeText(shareUrl);
+      toast.success("🔗 Link copied! Share your Neuron.", {
+        position: "bottom-right",
+        autoClose: 2000,
+      });
     } catch (error) {
       console.error("Sharing failed:", error);
-      toast.error("Error generating share link",{
-        position:"bottom-right",
-        autoClose:2000
+      toast.error("❌ Error generating share link", {
+        position: "bottom-right",
+        autoClose: 2000,
       });
     }
   };
@@ -61,12 +71,11 @@ export function Dashboard() {
     }
   }, [modelOpen]);
 
-  
   return (
     <div className="relative min-h-screen flex flex-col">
       <div className="fixed inset-0 bg-grid-light-purple opacity-60 pointer-events-none" />
-      <SideBar onFilterChange={(tag) => setActiveTag(tag || "")} />
-      <div className="p-3 bg-black ml-56 min-screen ">
+      <SideBar onFilterChange={(tag?: string) => setActiveTag(tag || "")} />
+      <div className="p-3 bg-black ml-56 min-screen">
         <CreateContentModel
           open={modelOpen}
           onClose={() => {
@@ -74,7 +83,7 @@ export function Dashboard() {
             refresh();
           }}
         />
-        <div className="flex justify-end gap-4 py-2 ">
+        <div className="flex justify-end gap-4 py-2">
           <div className="opacity-100 hover:opacity-80 transition-opacity duration-200">
             <Button
               variant="secondary"
@@ -92,6 +101,7 @@ export function Dashboard() {
             />
           </div>
         </div>
+
         {activeTag && (
           <div className="text-white mb-4 p-2">
             Showing collection: <span className="font-bold">{activeTag}</span>
@@ -100,12 +110,13 @@ export function Dashboard() {
                 onClick={() => setActiveTag("")}
                 text="Clear Filter"
                 variant="primary"
-              ></Button>
+              />
             </div>
           </div>
         )}
+
         <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">
-          {filteredContents.map((content) => (
+          {filteredContents.map((content: ContentType) => (
             <Card
               key={content._id}
               id={content._id}
@@ -113,6 +124,7 @@ export function Dashboard() {
               link={content.link}
               title={content.title}
               tag={content.tag}
+              disableActions={true}
             />
           ))}
         </div>

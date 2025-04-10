@@ -1,42 +1,50 @@
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { CrossIcon } from "../icon/cross";
 import { Button } from "./button";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { toast } from "react-toastify";
+import {FC} from "react";
 enum ContentType{
   Youtube = "youtube",
   Content = "article",
   LinkDump = "linkdump"
 }
+interface CreateContentModelProps {
+  open: boolean;
+  onClose: () => void;
+}
 
-export function CreateContentModel({ open, onClose }) {
-  const modalRef = useRef(null);
+export const CreateContentModel: FC<CreateContentModelProps> = ({
+  open,
+  onClose,
+}) => {
+  const modalRef = useRef<HTMLInputElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const linkRef = useRef<HTMLInputElement>(null);
-  
+
   const [type, setType] = useState(ContentType.Youtube);
   const [loading, setLoading] = useState(false);
-  const [selectedCollection ,setselectedCollection] = useState("") 
+  const [selectedCollection, setselectedCollection] = useState("");
 
   async function addContent() {
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
 
     if (!title || !link || !selectedCollection) {
-      toast.error("Please enter title, link and select a collection",{
-        position:"bottom-right",
-        autoClose:4000,
-      })
+      toast.error("Please enter title, link and select a collection", {
+        position: "bottom-right",
+        autoClose: 4000,
+      });
       return;
     }
 
-    function contentadded(){
-        toast.success("Content Added Succesfully!!",{
-          position:"bottom-right",
-          autoClose:3000    
-        })
-      }
+    function contentadded() {
+      toast.success("Content Added Succesfully!!", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
     setLoading(true);
     try {
       await axios.post(
@@ -45,7 +53,7 @@ export function CreateContentModel({ open, onClose }) {
           link,
           title,
           type,
-          tag:selectedCollection,
+          tag: selectedCollection,
         },
         {
           headers: {
@@ -53,7 +61,7 @@ export function CreateContentModel({ open, onClose }) {
           },
         }
       );
-      contentadded()
+      contentadded();
       onClose();
     } catch (error) {
       console.error("Failed to add content:", error);
@@ -64,14 +72,19 @@ export function CreateContentModel({ open, onClose }) {
   }
 
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
         onClose();
       }
     }
+
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);
     }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -95,14 +108,15 @@ export function CreateContentModel({ open, onClose }) {
           <div className="flex flex-col gap-4">
             <Input reference={titleRef} placeholder="Title" />
             <Input reference={linkRef} placeholder="Link" />
-            
+
             {/* Dropdown Menu */}
             <div className="flex items-center gap-3">
               <p className="whitespace-nowrap">Collection →</p>
-              <select 
+              <select
                 onChange={(e) => setselectedCollection(e.target.value)}
-                value={selectedCollection} 
-                className="py-2 border rounded w-full p-2">
+                value={selectedCollection}
+                className="py-2 border rounded w-full p-2"
+              >
                 <option value="" disabled selected hidden>
                   Select a Collection
                 </option>
@@ -138,17 +152,21 @@ export function CreateContentModel({ open, onClose }) {
               variant="primary"
               text={loading ? "Submitting..." : "Submit"}
               fullwidth
-              disabled={loading}
             />
           </div>
         </div>
       </div>
     )
   );
+};
 
+interface InputProp{
+  reference:RefObject<HTMLInputElement>;
+  placeholder:string;
 }
 
-function Input({ reference, placeholder }) {
+
+function Input({ reference, placeholder }:InputProp) {
   return (
     <input
       ref={reference}

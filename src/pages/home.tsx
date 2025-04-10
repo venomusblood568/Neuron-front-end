@@ -53,7 +53,7 @@ export function Home() {
             autoClose: 2000,
           });
         }
-      } catch (error) {
+      } catch (error: unknown) {
         toast.error("❌ Backend not reachable", {
           position: "bottom-right",
           autoClose: 2000,
@@ -158,7 +158,9 @@ export function Home() {
             rel="noopener noreferrer"
             className="hover:text-lightPurple transition-colors"
           >
-            <FaLinkedin className="w-5 h-5" />
+            <div className="w-5 h-5">
+              <FaLinkedin />
+            </div>
           </a>
           <a
             href="https://venomusblood568.github.io/"
@@ -166,7 +168,9 @@ export function Home() {
             rel="noopener noreferrer"
             className="hover:text-lightPurple transition-colors"
           >
-            <NeuronIcon className="w-5 h-5" />
+            <div className="w-5 h-5">
+              <NeuronIcon />
+            </div>
           </a>
         </div>
         <div className="h-4 w-px bg-gray-500/50"></div>

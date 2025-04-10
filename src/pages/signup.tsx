@@ -53,9 +53,9 @@ export function SignUp() {
     }
   }
 
-  function loginPage() {
-    navigate("/login");
-  }
+   function loginPage() {
+     navigate("/login");
+   }
 
   function homepage(){
     navigate("/");
@@ -92,15 +92,24 @@ export function SignUp() {
       </header>
 
       {/* Main Content */}
+      {/* Main Content */}
       <main className="flex-grow relative pt-24 flex justify-center items-center">
-        {/* Purple light rays */}
+        {/* Purple light effects */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/2 w-[150%] h-[150%] bg-gradient-radial from-purple-500/40 via-transparent to-transparent transform -translate-x-1/2 -translate-y-1/2 blur-3xl animate-pulse-slow" />
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-purple-500/20 to-transparent opacity-50" />
         </div>
 
-        <div className="bg-white rounded-xl min-w-72 p-10">
-          <h1 className="text-center gap-2 p-2 text-darkPurple text-[30px]">
+        {/* Login Card */}
+        <div className="relative bg-white/90 backdrop-blur-lg rounded-xl min-w-72 p-10 shadow-xl border border-purple-100 transform transition-all hover:shadow-2xl hover:border-purple-200">
+          {/* Inner glow effect */}
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 hover:opacity-30 transition-opacity duration-300 pointer-events-none" />
+
+          {/* Light accents */}
+          <div className="absolute top-0 left-1/2 w-1/2 h-1 bg-gradient-to-r from-purple-400/30 to-transparent transform -translate-y-1/2 blur-sm" />
+          <div className="absolute bottom-0 right-1/2 w-1/2 h-1 bg-gradient-to-l from-purple-400/30 to-transparent transform translate-y-1/2 blur-sm" />
+
+          <h1 className="text-center gap-2 p-2 text-darkPurple text-[30px] mb-6">
             SIGᑎᑌᑭ
           </h1>
           <Input reference={usernameRef} placeholder="Username" />
@@ -110,21 +119,22 @@ export function SignUp() {
             placeholder="Password"
             type="password"
           />
-          <div className="fflex justify-center pt-3 gap-4 items-center">
+
+          <div className="flex justify-center pt-3 gap-4 items-center text-white">
             <Button
               onClick={signup}
               loading={false}
               variant="primary"
-              text="Signup"
+              text="Login"
               fullwidth={true}
             />
           </div>
 
           <div
-            onClick={loginPage}
+            onClick={signup}
             className="m-2 cursor-pointer hover:text-darkPurple"
           >
-            Already have Account
+            Signin Account
           </div>
         </div>
       </main>
