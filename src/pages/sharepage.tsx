@@ -97,12 +97,13 @@ export function SharePage() {
     return (
       <div className="flex flex-col justify-center items-center h-screen text-white text-center px-4">
         <p className="text-xl md:text-3xl mb-6">{error}</p>
-        <Button
-          text="Return to Home"
-          onClick={() => navigateTo("/")}
-          variant="primary"
-          className="w-64"
-        />
+        <div className="w-64">
+          <Button
+            text="Return to Home"
+            onClick={() => navigateTo("/")}
+            variant="primary"
+          />
+        </div>
       </div>
     );
   }
@@ -119,7 +120,9 @@ export function SharePage() {
         }`}
         onClick={() => setIsSidebarOpen(true)}
       >
-        <MenuIcon className="text-white w-6 h-6" />
+        <div className="text-white w-6 h-6">
+          <MenuIcon />
+        </div>
       </button>
 
       {/* Sidebar */}
@@ -146,7 +149,9 @@ export function SharePage() {
             className="lg:hidden text-white hover:text-darkPurple p-1"
             onClick={() => setIsSidebarOpen(false)}
           >
-            <XIcon className="w-6 h-6" />
+            <div className="w-6 h-6">
+              <XIcon />
+            </div>
           </button>
         </div>
 
@@ -181,17 +186,18 @@ export function SharePage() {
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-8 lg:mt-16">
-          {sharedContent.map((content) => (
-            <Card
-              key={content._id}
-              id={content._id}
-              type={content.type}
-              link={content.link}
-              title={content.title}
-              disableActions
-              className="h-full"
-            />
-          ))}
+          <div className="h-full">
+            {sharedContent.map((content) => (
+              <Card
+                key={content._id}
+                id={content._id}
+                type={content.type}
+                link={content.link}
+                title={content.title}
+                disableActions
+              />
+            ))}
+          </div>
         </div>
       </div>
 
