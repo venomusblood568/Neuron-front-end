@@ -175,12 +175,12 @@ export function SharePage() {
 
       {/* Main Content */}
       <div className="lg:ml-56 flex-1 p-4 lg:p-10 relative">
-        <h1 className="text-center lg:text-right text-2xl lg:text-5xl font-extrabold tracking-wide mb-8 lg:mb-0 lg:absolute lg:top-4 lg:right-4">
+        <h1 className="text-center lg:text-right text-2xl lg:text-5xl font-extrabold tracking-wide mb-12 lg:mb-0 lg:absolute lg:top-8 lg:right-8">
           <span className="text-darkPurple">{username}'s</span>
           <span className="text-white ml-2">Neuron</span>
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-8 lg:mt-16">
           {sharedContent.map((content) => (
             <Card
               key={content._id}
