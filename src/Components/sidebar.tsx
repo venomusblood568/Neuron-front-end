@@ -102,7 +102,7 @@ export function SideBar({onFilterChange}:sidebarProps){
           <SidebarItems
             active={activeFilter === "random"}
             onClick={() => handleFilterClick("random")}
-            text=" Random Link Dump"
+            text=" Random Link"
             icon={<RandomIcon />}
           />
         </div>

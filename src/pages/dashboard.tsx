@@ -124,7 +124,7 @@ export function Dashboard() {
               link={content.link}
               title={content.title}
               tag={content.tag}
-              disableActions={true}
+              disableActions={false}
             />
           ))}
         </div>
