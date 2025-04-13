@@ -10,14 +10,22 @@ interface ButtonProps {
   loading?: boolean;
 }
 
-// Mapping button variants to their respective CSS classes
 const variantClasses = {
   primary: "bg-darkPurple text-white",
   secondary: "bg-lightPurple text-darkPurple",
 };
 
-const defaultStyles =
-  "inline-flex items-center px-4 py-2 rounded-md font-light cursor-pointer";
+// Mobile-first responsive base
+const defaultStyles = `
+  inline-flex items-center justify-center
+  px-3 py-2 text-sm
+  sm:px-4 sm:py-2 sm:text-base
+  md:px-5 md:py-3 md:text-base
+  lg:px-6 lg:py-3 lg:text-lg
+  rounded-md font-medium
+  cursor-pointer transition-colors duration-200
+  disabled:opacity-50 disabled:cursor-not-allowed
+`;
 
 export function Button({
   variant,
@@ -31,14 +39,19 @@ export function Button({
   return (
     <button
       onClick={onClick}
-      className={`${variantClasses[variant]} ${defaultStyles} ${
-        fullwidth ? "w-full justify-center items-center" : ""
-      } ${loading ? "opacity-45" : ""}`}
+      className={`
+        ${variantClasses[variant]}
+        ${defaultStyles}
+        ${fullwidth ? "w-full" : "w-fit"}
+        ${loading ? "opacity-50" : ""}
+      `}
       disabled={loading}
     >
-      {startIcon && <div className="pr-2">{startIcon}</div>}
-      {text}
-      {endIcon && <div className="pl-2">{endIcon}</div>}
+      {startIcon && (
+        <div className="mr-2 text-base sm:text-lg">{startIcon}</div>
+      )}
+      <span className="whitespace-nowrap">{text}</span>
+      {endIcon && <div className="ml-2 text-base sm:text-lg">{endIcon}</div>}
     </button>
   );
 }

@@ -10,7 +10,6 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { toast } from "react-toastify";
 
-// Define content item type based on usage
 type ContentType = {
   _id: string;
   type: any;
@@ -26,12 +25,9 @@ export function Dashboard() {
 
   const filteredContents = useMemo(() => {
     if (!activeTag) return contents;
-
-    return contents.filter((content: ContentType) => {
-      const contentTag = content.tag?.toString().toLowerCase().trim() || "";
-      const searchTag = activeTag.toLowerCase().trim();
-      return contentTag.includes(searchTag);
-    });
+    return contents.filter((content: ContentType) =>
+      content.tag?.toLowerCase().includes(activeTag.toLowerCase())
+    );
   }, [contents, activeTag]);
 
   const handleShare = async () => {
@@ -42,16 +38,12 @@ export function Dashboard() {
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/brain/share`,
         { share: true },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+        { headers: { Authorization: token } }
       );
 
       const shareUrl = `${window.location.origin}/share/${response.data.hash}`;
-
       await navigator.clipboard.writeText(shareUrl);
+
       toast.success("🔗 Link copied! Share your Neuron.", {
         position: "bottom-right",
         autoClose: 2000,
@@ -66,46 +58,47 @@ export function Dashboard() {
   };
 
   useEffect(() => {
-    if (modelOpen) {
-      refresh();
+    if (!modelOpen) {
+      refresh(); // Refresh only when modal closes
     }
   }, [modelOpen]);
 
   return (
-    <div className="relative min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col bg-black">
+      {/* Grid background */}
       <div className="fixed inset-0 bg-grid-light-purple opacity-60 pointer-events-none" />
+
+      {/* Sidebar */}
       <SideBar onFilterChange={(tag?: string) => setActiveTag(tag || "")} />
-      <div className="p-3 bg-black ml-56 min-screen">
+
+      {/* Main Content */}
+      <div className="p-3 pt-4 min-h-screen transition-all lg:ml-56">
         <CreateContentModel
           open={modelOpen}
-          onClose={() => {
-            setModelOpen(false);
-            refresh();
-          }}
+          onClose={() => setModelOpen(false)}
         />
+
+        {/* Top Buttons */}
         <div className="flex justify-end gap-4 py-2">
-          <div className="opacity-100 hover:opacity-80 transition-opacity duration-200">
-            <Button
-              variant="secondary"
-              text="Share Neuron"
-              startIcon={<ShareIcon />}
-              onClick={handleShare}
-            />
-          </div>
-          <div className="opacity-100 hover:opacity-80 transition-opacity duration-200">
-            <Button
-              variant="primary"
-              text="Add Content"
-              startIcon={<PlusIcon />}
-              onClick={() => setModelOpen(true)}
-            />
-          </div>
+          <Button
+            variant="secondary"
+            text="Share Neuron"
+            startIcon={<ShareIcon />}
+            onClick={handleShare}
+          />
+          <Button
+            variant="primary"
+            text="Add Content"
+            startIcon={<PlusIcon />}
+            onClick={() => setModelOpen(true)}
+          />
         </div>
 
+        {/* Active Tag Info */}
         {activeTag && (
-          <div className="text-white mb-4 p-2">
+          <div className="text-white mb-4">
             Showing collection: <span className="font-bold">{activeTag}</span>
-            <div className="gap-2">
+            <div className="mt-2">
               <Button
                 onClick={() => setActiveTag("")}
                 text="Clear Filter"
@@ -115,7 +108,8 @@ export function Dashboard() {
           </div>
         )}
 
-        <div className="grid grid-cols-4 gap-4 py-5 items-stretch w-full auto-rows-fr">
+        {/* Content Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-5">
           {filteredContents.map((content: ContentType) => (
             <Card
               key={content._id}
