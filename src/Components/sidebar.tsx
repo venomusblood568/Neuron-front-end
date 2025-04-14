@@ -14,11 +14,11 @@ import { RandomIcon } from "../icon/random";
 import { MenuIcon } from "../icon/menu";
 import { XIcon } from "../icon/xicon";
 
-interface sidebarProps {
+interface SidebarProps {
   onFilterChange: (tag: string) => void;
 }
 
-export function SideBar({ onFilterChange }: sidebarProps) {
+export function SideBar({ onFilterChange }: SidebarProps) {
   const [username, setUsername] = useState<string | null>(null);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -70,7 +70,9 @@ export function SideBar({ onFilterChange }: sidebarProps) {
           ${isSidebarOpen ? "opacity-0" : "opacity-100"} shadow-lg`}
         onClick={() => setIsSidebarOpen(true)}
       >
-        <MenuIcon className="text-white w-6 h-6" />
+        <div className="text-white w-6 h-6">
+          <MenuIcon />
+        </div>
       </button>
 
       {/* Sidebar Container */}
@@ -92,7 +94,9 @@ export function SideBar({ onFilterChange }: sidebarProps) {
             className="lg:hidden text-white hover:text-darkPurple p-1"
             onClick={() => setIsSidebarOpen(false)}
           >
-            <XIcon className="w-6 h-6" />
+            <div className="w-6 h-6">
+              <XIcon />
+            </div>
           </button>
         </div>
 
@@ -103,42 +107,36 @@ export function SideBar({ onFilterChange }: sidebarProps) {
             text="PROJECTS"
             onClick={() => handleFilterClick("project")}
             active={activeFilter === "project"}
-            mobile
           />
           <SidebarItems
             icon={<AreaIcon />}
             text="AREAS"
             onClick={() => handleFilterClick("area")}
             active={activeFilter === "area"}
-            mobile
           />
           <SidebarItems
             icon={<LinkIcon />}
             text="RESOURCES"
             onClick={() => handleFilterClick("resource")}
             active={activeFilter === "resource"}
-            mobile
           />
           <SidebarItems
             icon={<ArchiveIcon />}
             text="ARCHIVES"
             onClick={() => handleFilterClick("archives")}
             active={activeFilter === "archives"}
-            mobile
           />
           <SidebarItems
             icon={<ExperimentIcon />}
             text="EXPERIMENTS"
             onClick={() => handleFilterClick("experiment")}
             active={activeFilter === "experiment"}
-            mobile
           />
           <SidebarItems
             icon={<RandomIcon />}
             text="RANDOM LINK"
             onClick={() => handleFilterClick("random")}
             active={activeFilter === "random"}
-            mobile
           />
         </div>
 
@@ -149,14 +147,12 @@ export function SideBar({ onFilterChange }: sidebarProps) {
               icon={<ProfileIcon />}
               text={username || "User"}
               onClick={() => {}}
-              mobile
             />
             <div className="mt-2">
               <Logout
                 icon={<LogoutIcon />}
                 text="Logout"
                 onClick={logouthandler}
-                mobile
               />
             </div>
           </div>
