@@ -77,9 +77,12 @@ export function SideBar({ onFilterChange }: SidebarProps) {
 
       {/* Sidebar Container */}
       <div
-        className={`fixed top-0 left-0 h-screen bg-darkBg border-r-2 border-darkPurple z-40 
-          transition-transform duration-300 ease-in-out lg:translate-x-0 lg:w-56
-          ${isSidebarOpen ? "translate-x-0 w-72" : "-translate-x-full"}`}
+        className={`
+    fixed top-0 left-0 h-screen bg-darkBg border-r-2 border-darkPurple z-40 
+    transition-transform duration-300 ease-in-out
+    ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+    w-[80%] sm:w-64 lg:w-56 lg:translate-x-0
+  `}
       >
         {/* Header Section */}
         <div className="flex items-center justify-between p-6 border-b border-darkPurple/50">
