@@ -113,7 +113,6 @@ export function SharePage() {
       <div className="fixed inset-0 bg-grid-light-purple opacity-60 pointer-events-none" />
 
       {/* Mobile Hamburger */}
-      {/* Mobile Hamburger */}
       <button
         className={`lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-darkPurple/80 hover:bg-darkPurple transition-all shadow-lg ${
           isSidebarOpen ? "opacity-0 pointer-events-none" : "opacity-100"
@@ -125,26 +124,27 @@ export function SharePage() {
         </div>
       </button>
 
-      {/* Sidebar */}
+      {/* Sidebar with top-aligned buttons */}
       <div
         className={`fixed top-0 left-0 h-screen border-r-2 border-darkPurple bg-darkBg z-40 
           transition-transform duration-300 ease-in-out 
           lg:translate-x-0 lg:w-56
           ${
             isSidebarOpen
-              ? "translate-x-0 w-64"
+              ? "translate-x-0 w-72"
               : "-translate-x-full lg:translate-x-0"
           }`}
       >
         <div className="flex justify-between items-center p-4 lg:p-5 lg:m-5 border-b lg:border-none border-darkPurple/50">
           <div
             onClick={madeby}
-            className="text-3xl  tracking-widest cursor-pointer hover:scale-105 transition-transform text-white"
+            className="text-3xl tracking-widest cursor-pointer hover:scale-105 transition-transform text-white"
           >
             <span className="text-darkPurple">ᑎ</span>
             <span className="text-white">ᗴᑌᖇᗝ</span>
             <span className="text-darkPurple">ᑎ</span>
           </div>
+
           <button
             className="lg:hidden text-white hover:text-darkPurple p-1"
             onClick={() => setIsSidebarOpen(false)}
@@ -156,7 +156,8 @@ export function SharePage() {
         </div>
 
         {/* Sidebar Buttons */}
-        <div className="absolute bottom-4 w-full flex flex-col items-center px-4 gap-2 lg:gap-4">
+        <div className=" w-full flex flex-col items-center px-4 gap-2 lg:gap-4">
+          
           <Button
             variant="primary"
             text="Neuron"
@@ -178,30 +179,29 @@ export function SharePage() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content with fixed grid layout */}
       <div className="lg:ml-56 flex-1 p-4 lg:p-10 relative">
         <h1 className="text-center lg:text-right text-2xl lg:text-5xl font-extrabold tracking-wide mb-12 lg:mb-0 lg:absolute lg:top-8 lg:right-8">
           <span className="text-darkPurple">{username}'s</span>
           <span className="text-white ml-2">Neuron</span>
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-8 lg:mt-16">
-          <div className="h-full">
-            {sharedContent.map((content) => (
-              <Card
-                key={content._id}
-                id={content._id}
-                type={content.type}
-                link={content.link}
-                title={content.title}
-                disableActions
-              />
-            ))}
-          </div>
+        {/* Grid layout fixes */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-8 lg:mt-16 w-full">
+          {sharedContent.map((content) => (
+            <Card
+              key={content._id}
+              id={content._id}
+              type={content.type}
+              link={content.link}
+              title={content.title}
+              disableActions
+            />
+          ))}
         </div>
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Mobile Overlay */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-30 lg:hidden backdrop-blur-sm"
